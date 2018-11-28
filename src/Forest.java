@@ -1,7 +1,7 @@
 public class Forest extends Element {
     public Forest()
     {
-        this.element = ElementName.FOREST;
-        this.elementStrong = ElementName.ABYSS;
+        this.setElement(ElementName.FOREST);
+        this.setElementStrong(ElementName.ABYSS);
     }
 }
