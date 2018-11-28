@@ -1,7 +1,8 @@
 public class Fortress extends Element {
     public Fortress()
     {
-        this.setElement(ElementName.FORTRESS);
+        this.setElementName(ElementName.FORTRESS);
         this.setElementStrong(ElementName.SHADOW);
+        this.setElementVulnerable(ElementName.ABYSS);
     }
 }

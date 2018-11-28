@@ -1,11 +1,30 @@
 public abstract class Element {
-    private ElementName element;
+    private ElementName elementName;
     private static int elementStrongValueMin = 15;
     private static int elementStrongValueMax = 20;
     private ElementName elementStrong;
+    private static int elementVulnerableValueMin = 10;
+    private static int elementVulnerableValueMax = 15;
+    private ElementName elementVulnerable;
 
-    public ElementName getElement() {
-        return element;
+    public void setElementVulnerable(ElementName elementVulnerable) {
+        this.elementVulnerable = elementVulnerable;
+    }
+
+    public static int getElementVulnerableValueMin() {
+        return elementVulnerableValueMin;
+    }
+
+    public static int getElementVulnerableValueMax() {
+        return elementVulnerableValueMax;
+    }
+
+    public ElementName getElementVulnerable() {
+        return elementVulnerable;
+    }
+
+    public ElementName getElementName() {
+        return elementName;
     }
 
     public static int getElementStrongValueMin() {
@@ -20,8 +39,8 @@ public abstract class Element {
         return elementStrong;
     }
 
-    public void setElement(ElementName element) {
-        this.element = element;
+    public void setElementName(ElementName element) {
+        this.elementName = element;
     }
 
     public void setElementStrong(ElementName elementStrong) {

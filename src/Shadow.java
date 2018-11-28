@@ -1,7 +1,8 @@
 public class Shadow extends Element {
     public Shadow()
     {
-        this.setElement(ElementName.SHADOW);
+        this.setElementName(ElementName.SHADOW);
         this.setElementStrong(ElementName.FOREST);
+        this.setElementVulnerable(ElementName.FORTRESS);
     }
 }
