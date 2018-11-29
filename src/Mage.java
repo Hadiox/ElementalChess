@@ -1,10 +1,10 @@
 public class Mage extends Unit {
     public Mage(Element e)
     {
-        this.type = new Type (TypeName.MAGE,TypeName.ARCHER);
-        this.life = 300;
-        this.speed = 2;
-        this.sight = 8;
-        this.element = e;
+        this.setType(new Type (TypeName.MAGE,TypeName.ARCHER,TypeName.TEMPLAR));
+        this.setLife(300);
+        this.setSpeed(2);
+        this.setSight(8);
+        this.setElement(e);
     }
 }

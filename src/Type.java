@@ -1,10 +1,53 @@
 public class Type {
-    protected TypeName type;
-    protected static int typeStrongValueMin = 15;
-    protected static int typeStrongValueMax = 20;
-    protected TypeName typeStrong;
-    public Type(TypeName type, TypeName typeStrong) {
-        this.type = type;
+    private TypeName typeName;
+    private static int typeStrongValueMin = 15;
+    private static int typeStrongValueMax = 20;
+    private TypeName typeStrong;
+    private static int typeVulnerableValueMin = 10;
+    private static int typeVulnerableValueMax = 15;
+    private TypeName typeVulnerable;
+    public void setTypeVulnerable(TypeName typeVulnerable) {
+        this.typeVulnerable = typeVulnerable;
+    }
+
+    public static int getTypeVulnerableValueMin() {
+        return typeVulnerableValueMin;
+    }
+
+    public static int getTypeVulnerableValueMax() {
+        return typeVulnerableValueMax;
+    }
+
+    public TypeName getTypeVulnerable() {
+        return typeVulnerable;
+    }
+    public Type(TypeName type, TypeName typeStrong,TypeName typeVulnerable) {
+        this.setTypeName(type);
+        this.setTypeStrong(typeStrong);
+        this.setTypeVulnerable(typeVulnerable);
+    }
+
+    public TypeName getTypeName() {
+        return typeName;
+    }
+
+    public static int getTypeStrongValueMin() {
+        return typeStrongValueMin;
+    }
+
+    public static int getTypeStrongValueMax() {
+        return typeStrongValueMax;
+    }
+
+    public TypeName getTypeStrong() {
+        return typeStrong;
+    }
+
+    public void setTypeName(TypeName type) {
+        this.typeName = type;
+    }
+
+    public void setTypeStrong(TypeName typeStrong) {
         this.typeStrong = typeStrong;
     }
 }

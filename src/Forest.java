@@ -1,7 +1,8 @@
 public class Forest extends Element {
     public Forest()
     {
-        this.element = ElementName.FOREST;
-        this.elementStrong = ElementName.ABYSS;
+        this.setElementName(ElementName.FOREST);
+        this.setElementStrong(ElementName.ABYSS);
+        this.setElementVulnerable(ElementName.SHADOW);
     }
 }

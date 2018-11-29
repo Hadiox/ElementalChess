@@ -1,7 +1,8 @@
 public class Abyss extends Element {
     public Abyss()
     {
-        this.element = ElementName.ABYSS;
-        this.elementStrong = ElementName.FORTRESS;
+        this.setElementName(ElementName.ABYSS);
+        this.setElementStrong(ElementName.FORTRESS);
+        this.setElementVulnerable(ElementName.FOREST);
     }
 }

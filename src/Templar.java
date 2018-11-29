@@ -1,10 +1,10 @@
 public class Templar extends Unit {
     public Templar(Element e)
     {
-        this.type = new Type (TypeName.TEMPLAR,TypeName.MAGE);
-        this.life = 300;
-        this.speed = 8;
-        this.sight = 2;
-        this.element = e;
+        this.setType(new Type (TypeName.TEMPLAR,TypeName.MAGE,TypeName.ARCHER));
+        this.setLife(300);
+        this.setSpeed(8);
+        this.setSight(2);
+        this.setElement(e);
     }
 }
