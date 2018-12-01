@@ -1,3 +1,5 @@
+package Utility;
+import Units.Unit;
 public class AttackCounter {
     public int countAttack(Unit attacker, Unit defender)
     {

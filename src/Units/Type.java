@@ -1,3 +1,5 @@
+package Units;
+
 public class Type {
     private TypeName typeName;
     private static int typeStrongValueMin = 5;
@@ -21,7 +23,7 @@ public class Type {
     public TypeName getTypeVulnerable() {
         return typeVulnerable;
     }
-    public Type(TypeName type, TypeName typeStrong,TypeName typeVulnerable) {
+    public Type(TypeName type, TypeName typeStrong, TypeName typeVulnerable) {
         this.setTypeName(type);
         this.setTypeStrong(typeStrong);
         this.setTypeVulnerable(typeVulnerable);

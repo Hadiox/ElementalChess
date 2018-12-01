@@ -1,3 +1,7 @@
+package Units;
+
+import Elements.Element;
+
 public class Unit {
     private Type type;
     private Element element;

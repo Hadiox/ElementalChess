@@ -1,3 +1,5 @@
+package Elements;
+
 public abstract class Element {
     private ElementName elementName;
     private static int elementStrongValueMin = 5;

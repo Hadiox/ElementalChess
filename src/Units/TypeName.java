@@ -1,3 +1,5 @@
+package Units;
+
 public enum TypeName {
     MAGE("Abyss"),TEMPLAR("Shadow"),ARCHER("Fortress");
     private String type;

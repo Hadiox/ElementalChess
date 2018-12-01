@@ -1,3 +1,4 @@
+package Elements;
 public class Forest extends Element {
     public Forest()
     {

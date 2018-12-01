@@ -1,3 +1,7 @@
+package Elements;
+
+import Elements.Element;
+
 public class Fortress extends Element {
     public Fortress()
     {
