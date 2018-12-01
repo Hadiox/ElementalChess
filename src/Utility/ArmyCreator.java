@@ -35,7 +35,7 @@ public class ArmyCreator {
     {
         while(true)
         {
-            String command = Game.getCommand();
+            String command = MenuHandler.getCommand();
             if(command.equals("finish"))
             {
                 return;
