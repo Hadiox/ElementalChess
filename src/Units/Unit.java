@@ -1,8 +1,8 @@
 public class Unit {
     private Type type;
     private Element element;
-    private static int attackMin = 15;
-    private static int attackMax = 20;
+    private static int attackMin = 30;
+    private static int attackMax = 40;
     private int life;
     private int sight;
     private int speed;

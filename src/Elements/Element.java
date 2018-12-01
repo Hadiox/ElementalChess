@@ -1,10 +1,10 @@
 public abstract class Element {
     private ElementName elementName;
-    private static int elementStrongValueMin = 15;
-    private static int elementStrongValueMax = 20;
+    private static int elementStrongValueMin = 5;
+    private static int elementStrongValueMax = 10;
     private ElementName elementStrong;
-    private static int elementVulnerableValueMin = 10;
-    private static int elementVulnerableValueMax = 15;
+    private static int elementVulnerableValueMin = 5;
+    private static int elementVulnerableValueMax = 10;
     private ElementName elementVulnerable;
 
     public void setElementVulnerable(ElementName elementVulnerable) {

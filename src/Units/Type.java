@@ -1,10 +1,10 @@
 public class Type {
     private TypeName typeName;
-    private static int typeStrongValueMin = 15;
-    private static int typeStrongValueMax = 20;
+    private static int typeStrongValueMin = 5;
+    private static int typeStrongValueMax = 10;
     private TypeName typeStrong;
-    private static int typeVulnerableValueMin = 10;
-    private static int typeVulnerableValueMax = 15;
+    private static int typeVulnerableValueMin = 5;
+    private static int typeVulnerableValueMax = 10;
     private TypeName typeVulnerable;
     public void setTypeVulnerable(TypeName typeVulnerable) {
         this.typeVulnerable = typeVulnerable;
