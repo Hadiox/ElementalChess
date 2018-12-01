@@ -1,3 +1,5 @@
+package Game;
+
 import Elements.Fortress;
 import Elements.Shadow;
 import Units.Mage;

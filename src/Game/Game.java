@@ -1,5 +1,8 @@
-import Utility.ArmyCreator;
+package Game;
 
+import Utility.ArmyCreator;
+import Utility.Board;
+import Utility.Player;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,11 +18,15 @@ public class Game {
             if (st.equals("start"))
             {
                 ArmyCreator armyCreator = new ArmyCreator();
+                armyCreator.setArmy();
+                Player [] players = armyCreator.getPlayers();
+                Board board = new Board();
             }
             else
                 {
                     if (st.equals("exit"))
                     {
+
                         System.exit(0);
                     }
                     else {

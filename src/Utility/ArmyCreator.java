@@ -1,4 +1,11 @@
 package Utility;
+import Elements.*;
+import Game.Game;
+import Units.Archer;
+import Units.Mage;
+import Units.Templar;
+import Units.Unit;
+
 public class ArmyCreator {
     private Player[] players;
     public ArmyCreator()
@@ -11,5 +18,109 @@ public class ArmyCreator {
 
     public Player[] getPlayers() {
         return players;
+    }
+    public void setArmy()
+    {
+        System.out.println("First Player 1 will set his army. There are 3 types of units: Archer, Mage and Templar.\n" +
+                "They can have 1 of 4 elements: Abyss, Fortress, Forest and Shadow. You have 1000 points to spend\n" +
+                "on your units. Each unit costs 5 points. To buy units type: <unit element> <unit type> <number of units>\n" +
+                "for example to buy 20 Forest Archers type: Forest Archer 20\n" +
+                "To end choosing your army type: 'finish' Then Player 2 will set up his army.");
+        setForPlayer(this.players[0]);
+        System.out.println("Now Player 2 chooses!");
+        setForPlayer(this.players[1]);
+        System.out.println("Finished choosing army!");
+    }
+    public void setForPlayer(Player p)
+    {
+        while(true)
+        {
+            String command = Game.getCommand();
+            if(command.equals("finish"))
+            {
+                return;
+            }
+            else
+            {
+                String [] com = command.toString().split(" ");
+                if(com.length != 3)
+                {
+                    System.out.println("Typed wrong command! Try again.");
+                }
+                else
+                {
+                    try
+                    {
+                        Slot s = new Slot(Integer.parseInt(com[2]),chooseUnit(com[1],com[0]));
+                        if(s.getCost()>p.getPoints())
+                        {
+                            System.out.println("You can't afford such units! Get cheaper slot!");
+                        }
+                        else
+                        {
+                            p.getBackpack().add(s);
+                            p.setPoints(p.getPoints()-s.getCost());
+                            System.out.println("Units bought! Now you have: " + p.getPoints() + " points left!");
+                        }
+                    }
+                    catch(UnexpectedElementNameException e)
+                    {
+                        e.exportError();
+                    }
+                    catch(UnexpectedUnitNameException e)
+                    {
+                        e.exportError();
+                    }
+                }
+            }
+        }
+    }
+    public Unit chooseUnit(String unit, String element) throws UnexpectedUnitNameException,UnexpectedElementNameException
+    {
+        switch(unit)
+        {
+            case "Archer":
+            {
+                return new Archer(chooseElement (element));
+            }
+            case "Mage":
+            {
+                return new Mage(chooseElement (element));
+            }
+            case "Templar":
+            {
+                return new Templar(chooseElement (element));
+            }
+            default:
+            {
+                throw new UnexpectedUnitNameException();
+            }
+        }
+    }
+    public Element chooseElement(String element) throws UnexpectedElementNameException
+    {
+        switch(element)
+        {
+            case "Abyss":
+            {
+                return new Abyss();
+            }
+            case "Shadow":
+            {
+                return new Shadow();
+            }
+            case "Fortress":
+            {
+                return new Fortress();
+            }
+            case "Forest":
+            {
+                return new Forest();
+            }
+            default:
+            {
+                throw new UnexpectedElementNameException();
+            }
+        }
     }
 }
