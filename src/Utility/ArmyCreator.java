@@ -1,10 +1,10 @@
 package Utility;
 import Elements.*;
-import Game.Game;
 import Units.Archer;
 import Units.Mage;
 import Units.Templar;
 import Units.Unit;
+import Game.Game;
 
 public class ArmyCreator {
     private Player[] players;
@@ -58,9 +58,23 @@ public class ArmyCreator {
                         }
                         else
                         {
-                            p.getBackpack().add(s);
-                            p.setPoints(p.getPoints()-s.getCost());
-                            System.out.println("Units bought! Now you have: " + p.getPoints() + " points left!");
+                            boolean flag = false;
+                            for(Slot s2:p.getBackpack())
+                            {
+                                if(s2.getUnitName().getElement().getElementName().equals(s.getUnitName().getElement().getElementName()) && s2.getUnitName().getType().getTypeName().equals(s2.getUnitName().getType().getTypeName()))
+                                {
+                                    flag = true;
+                                    s2.setNumberOfUnits(s2.getNumberOfUnits()+s.getNumberOfUnits());
+                                    p.setPoints(p.getPoints()-s.getCost());
+                                    System.out.println("Units bought! Now you have: " + p.getPoints() + " points left!");
+                                }
+                            }
+                            if(!flag)
+                            {
+                                p.getBackpack().add(s);
+                                p.setPoints(p.getPoints()-s.getCost());
+                                System.out.println("Units bought! Now you have: " + p.getPoints() + " points left!");
+                            }
                         }
                     }
                     catch(UnexpectedElementNameException e)
