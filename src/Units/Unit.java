@@ -11,7 +11,6 @@ public class Unit {
     private int sight;
     private int speed;
     private static int unitCost=5;
-
     public static int getUnitCost() {
         return unitCost;
     }

@@ -1,5 +1,7 @@
 package Units;
 
+import javafx.scene.text.Text;
+
 public class Type {
     private TypeName typeName;
     private static int typeStrongValueMin = 5;
@@ -8,6 +10,16 @@ public class Type {
     private static int typeVulnerableValueMin = 5;
     private static int typeVulnerableValueMax = 10;
     private TypeName typeVulnerable;
+    private Text symbol;
+
+    public void setSymbol(Text symbol) {
+        this.symbol = symbol;
+    }
+
+    public Text getSymbol() {
+        return symbol;
+    }
+
     public void setTypeVulnerable(TypeName typeVulnerable) {
         this.typeVulnerable = typeVulnerable;
     }
@@ -23,10 +35,11 @@ public class Type {
     public TypeName getTypeVulnerable() {
         return typeVulnerable;
     }
-    public Type(TypeName type, TypeName typeStrong, TypeName typeVulnerable) {
+    public Type(TypeName type, TypeName typeStrong, TypeName typeVulnerable,Text symbol) {
         this.setTypeName(type);
         this.setTypeStrong(typeStrong);
         this.setTypeVulnerable(typeVulnerable);
+        this.setSymbol(symbol);
     }
 
     public TypeName getTypeName() {
