@@ -10,13 +10,13 @@ public class Type {
     private static int typeVulnerableValueMin = 5;
     private static int typeVulnerableValueMax = 10;
     private TypeName typeVulnerable;
-    private Text symbol;
+    private String symbol;
 
-    public void setSymbol(Text symbol) {
+    public void setSymbol(String symbol) {
         this.symbol = symbol;
     }
 
-    public Text getSymbol() {
+    public String getSymbol() {
         return symbol;
     }
 
@@ -35,7 +35,7 @@ public class Type {
     public TypeName getTypeVulnerable() {
         return typeVulnerable;
     }
-    public Type(TypeName type, TypeName typeStrong, TypeName typeVulnerable,Text symbol) {
+    public Type(TypeName type, TypeName typeStrong, TypeName typeVulnerable,String symbol) {
         this.setTypeName(type);
         this.setTypeStrong(typeStrong);
         this.setTypeVulnerable(typeVulnerable);

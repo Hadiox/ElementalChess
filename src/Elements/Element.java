@@ -1,7 +1,4 @@
 package Elements;
-
-import javafx.scene.text.Text;
-
 public abstract class Element {
     private ElementName elementName;
     private static int elementStrongValueMin = 5;
@@ -10,13 +7,13 @@ public abstract class Element {
     private static int elementVulnerableValueMin = 5;
     private static int elementVulnerableValueMax = 10;
     private ElementName elementVulnerable;
-    private Text symbol;
+    private String symbol;
 
-    public void setSymbol(Text sybol) {
-        this.symbol = sybol;
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
 
-    public Text getSybol() {
+    public String getSymbol() {
         return symbol;
     }
 
