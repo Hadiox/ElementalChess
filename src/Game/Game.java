@@ -52,13 +52,14 @@ public class Game extends Application {
         ArrayList<Text> unitsOfPlayer2 = new ArrayList<>();
         ObservableList list = setter.setBoard(root,players,unitsOfPlayer1,unitsOfPlayer2);
         fields = new ArrayList<Field>();
-        TextField amountOfUnits = setter.createTextFieldForAmountOfUnits(384,650);
-        Text amountOfUnitsText = setter.createAmountOfUnitsText(370,690);
+        BattlefieldManager manager = new BattlefieldManager(this,players);
+        TextField amountOfUnits = manager.createTextFieldForAmountOfUnits(384,650);
+        Text amountOfUnitsText = manager.createAmountOfUnitsText(370,690);
         for(int row = 0;row < 12;row++)
         {
             for(int column = 0;column<12;column++)
             {
-                Field f = setter.createField(384+(column*50),45+(row*50),(row*12)+column,amountOfUnits);
+                Field f = manager.createField(384+(column*50),45+(row*50),(row*12)+column,amountOfUnits);
                 list.add(f.getFieldSquare());
                 list.add(f.getText());
                 fields.add(f);

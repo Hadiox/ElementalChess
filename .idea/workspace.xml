@@ -2,33 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eabea0e1-5e30-45b3-b1a8-7cafbe37f2a6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ElementalChess/Elements/Abyss.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ElementalChess/Elements/Abyss.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ElementalChess/Elements/Element.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ElementalChess/Elements/Element.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ElementalChess/Elements/Forest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ElementalChess/Elements/Forest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ElementalChess/Elements/Fortress.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ElementalChess/Elements/Fortress.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ElementalChess/Elements/Shadow.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ElementalChess/Elements/Shadow.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ElementalChess/Game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ElementalChess/Game/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ElementalChess/Units/Archer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ElementalChess/Units/Archer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ElementalChess/Units/Mage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ElementalChess/Units/Mage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ElementalChess/Units/Templar.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ElementalChess/Units/Templar.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ElementalChess/Units/Type.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ElementalChess/Units/Type.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ElementalChess/Utility/ArmyCreator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ElementalChess/Utility/ArmyCreator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ElementalChess/Utility/BoardSetter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ElementalChess/Utility/BoardSetter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ElementalChess/Utility/Slot.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ElementalChess/Utility/Slot.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/Abyss.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Abyss.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/Element.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Element.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/Forest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Forest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/Fortress.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Fortress.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/Shadow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Shadow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Units/Archer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Units/Archer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Units/Mage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Units/Mage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Units/Templar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Units/Templar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Units/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Units/Type.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utility/ArmyCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utility/ArmyCreator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Utility/BoardSetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utility/BoardSetter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utility/Slot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utility/Slot.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -59,23 +34,23 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="iml" value="2" />
-          <entry key="java" value="223" />
+          <entry key="java" value="224" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="IDEA_MODULE" value="2" />
-          <entry key="JAVA" value="223" />
+          <entry key="JAVA" value="224" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="17767" />
+          <entry key="java" value="18234" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="17767" />
+          <entry key="JAVA" value="18234" />
         </counts>
       </usages-collector>
     </session>
@@ -90,15 +65,6 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Elements/Forest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="17" selection-start-column="17" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -121,15 +87,31 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Utility/BoardSetter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="148" column="80" selection-start-line="148" selection-start-column="80" selection-end-line="148" selection-end-column="80" />
+            <state relative-caret-position="225">
+              <caret line="91" column="5" selection-start-line="91" selection-start-column="5" selection-end-line="91" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#615#616#0" expanded="true" />
                 <element signature="e#645#646#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Utility/BattlefieldManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="82" column="98" selection-start-line="82" selection-start-column="98" selection-end-line="82" selection-end-column="98" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#997#998#0" expanded="true" />
+                <element signature="e#1056#1057#0" expanded="true" />
+                <element signature="e#1243#1244#0" expanded="true" />
+                <element signature="e#1297#1298#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -147,11 +129,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Game/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="60" column="95" selection-start-line="60" selection-start-column="95" selection-end-line="60" selection-end-column="95" />
+            <state relative-caret-position="415">
+              <caret line="61" column="33" selection-start-line="61" selection-start-column="33" selection-end-line="61" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -260,8 +242,9 @@
         <option value="$PROJECT_DIR$/src/Elements/Element.java" />
         <option value="$PROJECT_DIR$/src/Elements/Forest.java" />
         <option value="$PROJECT_DIR$/src/Elements/Fortress.java" />
-        <option value="$PROJECT_DIR$/src/Game/Game.java" />
         <option value="$PROJECT_DIR$/src/Utility/BoardSetter.java" />
+        <option value="$PROJECT_DIR$/src/Utility/BattlefieldManager.java" />
+        <option value="$PROJECT_DIR$/src/Game/Game.java" />
       </list>
     </option>
   </component>
@@ -330,7 +313,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545501407413" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545598724496" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="Lombok plugin" />
@@ -388,18 +371,18 @@
       <workItem from="1544005518865" duration="3179000" />
       <workItem from="1544038732141" duration="94000" />
       <workItem from="1545485759900" duration="15202000" />
-      <workItem from="1545589174844" duration="5694000" />
+      <workItem from="1545589174844" duration="7447000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65735000" />
+    <option name="totallyTimeSpent" value="67488000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.29425114" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.29425114" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -408,13 +391,13 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3295082" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3295082" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3295082" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3295082" />
+      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.3295082" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.3295082" />
@@ -588,16 +571,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Game/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="60" column="95" selection-start-line="60" selection-start-column="95" selection-end-line="60" selection-end-column="95" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Utility/ArmyCreator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-336">
@@ -631,12 +604,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Utility/BoardSetter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="148" column="80" selection-start-line="148" selection-start-column="80" selection-end-line="148" selection-end-column="80" />
+        <state relative-caret-position="225">
+          <caret line="91" column="5" selection-start-line="91" selection-start-column="5" selection-end-line="91" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#615#616#0" expanded="true" />
             <element signature="e#645#646#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Utility/BattlefieldManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="82" column="98" selection-start-line="82" selection-start-column="98" selection-end-line="82" selection-end-column="98" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#997#998#0" expanded="true" />
+            <element signature="e#1056#1057#0" expanded="true" />
+            <element signature="e#1243#1244#0" expanded="true" />
+            <element signature="e#1297#1298#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="415">
+          <caret line="61" column="33" selection-start-line="61" selection-start-column="33" selection-end-line="61" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
