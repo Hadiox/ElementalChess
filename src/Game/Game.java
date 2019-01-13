@@ -3,6 +3,7 @@ import Utility.*;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
@@ -14,9 +15,10 @@ import javafx.application.*;
 import java.util.ArrayList;
 
 public class Game extends Application {
-    int enabledSlotID = -1;
-    ArrayList<Field> fields;
-    Player[]players;
+    private int enabledSlotID = -1;
+    private int enabledFieldID = -1;
+    private ArrayList<Field> fields;
+    private Player[]players;
     public void start(Stage primaryStage)
     {
         //Menu---------------------------------------------------------------------------
@@ -55,17 +57,21 @@ public class Game extends Application {
         BattlefieldManager manager = new BattlefieldManager(this,players);
         TextField amountOfUnits = manager.createTextFieldForAmountOfUnits(384,650);
         Text amountOfUnitsText = manager.createAmountOfUnitsText(370,690);
+        CheckBox moveCheckBox = manager.createCheckBox("Move",600,650);
+        CheckBox attackCheckBox = manager.createCheckBox("Attack",700,650);
+        CheckBox moveFromBackpackCheckBox = manager.createCheckBox("Move from backpack",800,650);
+        manager.setDisablingCheckBoxes(moveCheckBox,moveFromBackpackCheckBox,attackCheckBox);
         for(int row = 0;row < 12;row++)
         {
             for(int column = 0;column<12;column++)
             {
-                Field f = manager.createField(384+(column*50),45+(row*50),(row*12)+column,amountOfUnits);
+                Field f = manager.createField(384+(column*50),45+(row*50),(row*12)+column,amountOfUnits,moveFromBackpackCheckBox,moveCheckBox,attackCheckBox);
                 list.add(f.getFieldSquare());
                 list.add(f.getText());
                 fields.add(f);
             }
         }
-        list.addAll(amountOfUnits,amountOfUnitsText);
+        list.addAll(amountOfUnits,amountOfUnitsText,moveCheckBox,attackCheckBox,moveFromBackpackCheckBox);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -80,5 +86,21 @@ public class Game extends Application {
 
     public void setEnabledSlotID(int enabledSlot) {
         this.enabledSlotID = enabledSlot;
+    }
+
+    public void setEnabledFieldID(int enabledFieldID) {
+        this.enabledFieldID = enabledFieldID;
+    }
+
+    public int getEnabledFieldID() {
+        return enabledFieldID;
+    }
+
+    public ArrayList<Field> getFields() {
+        return fields;
+    }
+
+    public Player[] getPlayers() {
+        return players;
     }
 }

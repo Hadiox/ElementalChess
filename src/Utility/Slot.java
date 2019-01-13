@@ -23,6 +23,15 @@ public class Slot {
     private int cost;
     private Text representation;
     private Text fieldRepresentation;
+    private int lifeLost;
+
+    public void setLifeLost(int lifeLost) {
+        this.lifeLost = lifeLost;
+    }
+
+    public int getLifeLost() {
+        return lifeLost;
+    }
 
     public void setFieldRepresentation(Text fieldRepresentation) {
         this.fieldRepresentation = fieldRepresentation;
@@ -116,6 +125,7 @@ public class Slot {
         this.fieldRepresentation.setVisible(false);
         this.slotLife = unitName.getLife()*numberOfUnits;
         this.cost = unitName.getUnitCost()*numberOfUnits;
+        this.lifeLost=0;
         Text t = new Text();
         t.setText(unitName.getElement().getElementName().element+ " "+unitName.getType().getTypeName().type+" "+getNumberOfUnits());
         t.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR,16));

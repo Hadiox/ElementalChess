@@ -1,7 +1,7 @@
 package Utility;
 import Units.Unit;
 public class AttackCounter {
-    public int countAttack(Unit attacker, Unit defender)
+    public static int countAttackOfOneUnit(Unit attacker, Unit defender)
     {
         int attack = Unit.getAttackMin() + ((int)((double)(Unit.getAttackMax() - Unit.getAttackMin())*Math.random()));
 
@@ -46,6 +46,15 @@ public class AttackCounter {
         if(attack<5)
         {
             attack = 5;
+        }
+        return attack;
+    }
+    public static int countAttack(Slot attacker,Slot defender)
+    {
+        int attack=0;
+        for(int a=0;a<attacker.getNumberOfUnits();a++)
+        {
+            attack+=AttackCounter.countAttackOfOneUnit(attacker.getUnitName(),defender.getUnitName());
         }
         System.out.println(attack);
         return attack;

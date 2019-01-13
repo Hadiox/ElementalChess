@@ -62,7 +62,7 @@ public class ArmyCreator {
                             boolean flag = false;
                             for(Slot s2:p.getBackpack())
                             {
-                                if(s2.getUnitName().getElement().getElementName().equals(s.getUnitName().getElement().getElementName()) && s2.getUnitName().getType().getTypeName().equals(s2.getUnitName().getType().getTypeName()))
+                                if(s2.getUnitName().getElement().getElementName().equals(s.getUnitName().getElement().getElementName()) && s2.getUnitName().getType().getTypeName().equals(s.getUnitName().getType().getTypeName()))
                                 {
                                     flag = true;
                                     s2.setNumberOfUnits(s2.getNumberOfUnits()+s.getNumberOfUnits());

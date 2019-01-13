@@ -7,7 +7,7 @@ public class Mage extends Unit {
     public Mage(Element e)
     {
         this.setType(new Type(TypeName.MAGE,TypeName.ARCHER,TypeName.TEMPLAR,"★"));
-        this.setLife(300);
+        this.setLife(100);
         this.setSpeed(2);
         this.setSight(8);
         this.setElement(e);
