@@ -90,4 +90,13 @@ public class BoardSetter {
         }
         return result;
     }
+    public static Text createTurnLabel()
+    {
+        Text turnLabel = new Text("Player "+1+" has turn");
+        turnLabel.setFont(Font.font("arial",FontWeight.BOLD,FontPosture.REGULAR,30));
+        turnLabel.setFill(Color.BLACK);
+        turnLabel.setX(550);
+        turnLabel.setY(25);
+        return turnLabel;
+    }
 }

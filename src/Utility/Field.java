@@ -15,7 +15,7 @@ public class Field {
     private Slot fieldSlot;
     private int fieldID;
 
-    public Field(int fieldID,Game game) {
+    public Field(int fieldID,Game game,CheckBox moveFromBackpackCheckBox, CheckBox moveCheckBox, CheckBox attackCheckBox) {
         this.fieldSquare = null;
         this.fieldSlot = null;
         this.fieldID = fieldID;
@@ -23,39 +23,46 @@ public class Field {
         EventHandler<MouseEvent> eventMouseClick = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(fieldID==game.getEnabledFieldID())
-                {
-                    Glow g = new Glow();
-                    g.setLevel(0);
-                    text.setEffect(g);
-                    game.setEnabledFieldID(-1);
-                    BattlefieldManager.setBoardColor(Color.GREEN,game);
-                }
-                else {
-                    for (Field f : game.getFields()) {
+                if(fieldSlot!=null && fieldSlot.getPlayer().getPlayerNumber()==game.getPlayerTurn()) {
+                    if (fieldID == game.getEnabledFieldID()) {
                         Glow g = new Glow();
                         g.setLevel(0);
-                        f.getText().setEffect(g);
-                        f.getFieldSquare().setFill(Color.GREEN);
-                    }
-                    game.setEnabledFieldID(fieldID);
-                    Glow g = new Glow();
-                    g.setLevel(4);
-                    text.setEffect(g);
-                    for(Field f:game.getFields())
-                    {
-                        if(Field.checkAvailability(fieldSlot.getUnitName().getSpeed(),fieldID,f.getFieldID(),game))
-                        {
-                            f.getFieldSquare().setFill(Color.DARKORANGE);
+                        text.setEffect(g);
+                        game.setEnabledFieldID(-1);
+                        BattlefieldManager.setBoardColor(Color.GREEN, game);
+                    } else {
+                        for (Field f : game.getFields()) {
+                            Glow g = new Glow();
+                            g.setLevel(0);
+                            f.getText().setEffect(g);
+                            f.getFieldSquare().setFill(Color.GREEN);
+                        }
+                        game.setEnabledFieldID(fieldID);
+                        Glow g = new Glow();
+                        g.setLevel(4);
+                        text.setEffect(g);
+                        if (moveCheckBox.isSelected()) {
+                            colorFieldsInRange(game, fieldID, Color.DARKORANGE, fieldSlot.getUnitName().getSpeed());
+                        } else {
+                            if (attackCheckBox.isSelected()) {
+                                colorFieldsInRange(game, fieldID, Color.YELLOW, fieldSlot.getUnitName().getSight());
+                            }
                         }
                     }
                 }
-
             }
+
         };
         this.text.addEventFilter(MouseEvent.MOUSE_CLICKED,eventMouseClick);
     }
-
+    public static void colorFieldsInRange(Game game, int fieldID,Color color,int range)
+    {
+        for (Field f : game.getFields()) {
+            if (Field.checkAvailability(range, fieldID, f.getFieldID(), game)) {
+                f.getFieldSquare().setFill(color);
+            }
+        }
+    }
     public void setText(Text text) {
         this.text = text;
     }

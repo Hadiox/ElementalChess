@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -33,7 +34,7 @@ public class BattlefieldManager {
     }
     public Field createField(double x, double y,int ID,TextField amountOfUnits, CheckBox moveFromBackpackCheckbox, CheckBox moveCheckBox, CheckBox attackCheckBox)
     {
-        Field f = new Field(ID,game);
+        Field f = new Field(ID,game,moveFromBackpackCheckbox,moveCheckBox,attackCheckBox);
         Rectangle r = new Rectangle(x,y,48,48);
         r.setFill(Color.GREEN);
         EventHandler<MouseEvent> eventHandlerDrag = new EventHandler<MouseEvent>()
@@ -48,6 +49,10 @@ public class BattlefieldManager {
                 if(r.getFill()==Color.GREEN)
                 {
                     r.setFill(Color.LIGHTGREEN);
+                }
+                if(r.getFill()==Color.YELLOW)
+                {
+                    r.setFill(Color.LIGHTYELLOW);
                 }
             }
         };
@@ -64,6 +69,10 @@ public class BattlefieldManager {
                 {
                     r.setFill(Color.GREEN);
                 }
+                if(r.getFill()==Color.LIGHTYELLOW)
+                {
+                    r.setFill(Color.YELLOW);
+                }
             }
         };
         EventHandler<MouseEvent> eventHandlerClick = new EventHandler<MouseEvent>() {
@@ -74,10 +83,10 @@ public class BattlefieldManager {
                     if (game.getEnabledSlotID() == -1) {
                         return;
                     } else {
-                        Player p = players[0];//TURNS
+                        Player p = players[game.getPlayerTurn()-1];//TURNS
                         for (Slot s : p.getBackpack()) {
                             if (s.getSlotID() == game.getEnabledSlotID()) {
-                                if (f.getFieldID() > 131 && f.getFieldID() < 144 && !s.isDroppedOnField()) {
+                                if ((s.getPlayer().getPlayerNumber()==1&&f.getFieldID() > 131 && f.getFieldID() < 144 && !s.isDroppedOnField())||(s.getPlayer().getPlayerNumber()==2&&f.getFieldID() >=0 && f.getFieldID() < 12 && !s.isDroppedOnField())) {
                                     String numberOfUnitsText = amountOfUnits.getText();
                                     int numberOfUnits;
                                     try {
@@ -85,9 +94,11 @@ public class BattlefieldManager {
                                         if (numberOfUnits > 0) {
                                             if (f.getFieldSlot() == null) {
                                                 manager.checkAmountOfChosenUnits(f, s, numberOfUnits);
+                                                game.cleanUpAfterTurn();
                                             } else {
-                                                if (f.getFieldSlot().getUnitName().getType().equals(s.getUnitName().getType()) && f.getFieldSlot().getUnitName().getElement().equals(s.getUnitName().getElement())) {
+                                                if (f.getFieldSlot().getPlayer().equals(s.getPlayer())&&f.getFieldSlot().getUnitName().getType().equals(s.getUnitName().getType()) && f.getFieldSlot().getUnitName().getElement().equals(s.getUnitName().getElement())) {
                                                     manager.checkAmountOfChosenUnits(f, s, numberOfUnits);
+                                                    game.cleanUpAfterTurn();
                                                 }
                                             }
                                         }
@@ -112,13 +123,13 @@ public class BattlefieldManager {
                             }
                         }
                         if(source.getFieldSlot()!= null && Field.checkAvailability(source.getFieldSlot().getUnitName().getSpeed(),source.getFieldID(),f.getFieldID(),game)) {
-                            if (f.getFieldSlot() != null && source.getFieldSlot() != null && source.getFieldSlot().getUnitName().getElement().getElementName().equals(f.getFieldSlot().getUnitName().getElement().getElementName()) && source.getFieldSlot().getUnitName().getType().getTypeName().equals(f.getFieldSlot().getUnitName().getType().getTypeName())) {
+                            if (f.getFieldSlot() != null && source.getFieldSlot() != null&&f.getFieldSlot().getPlayer().equals(source.getFieldSlot().getPlayer())&& !source.equals(f) && source.getFieldSlot().getUnitName().getElement().getElementName().equals(f.getFieldSlot().getUnitName().getElement().getElementName()) && source.getFieldSlot().getUnitName().getType().getTypeName().equals(f.getFieldSlot().getUnitName().getType().getTypeName())) {
                                 manager.checkAmountOfChosenUnits(f, source.getFieldSlot(), source.getFieldSlot().getNumberOfUnits());
                                 source.setFieldSlot(null);
                                 source.getText().setText("");
-                                BattlefieldManager.setBoardColor(Color.GREEN,game);
+                                game.cleanUpAfterTurn();
                             } else {
-                                if (source.getFieldSlot() != null && f.getFieldSlot() == null) {
+                                if (source.getFieldSlot() != null && f.getFieldSlot() == null && !source.equals(f)) {
                                     f.setFieldSlot(source.getFieldSlot());
                                     source.setFieldSlot(null);
                                     source.getText().setText("");
@@ -126,8 +137,14 @@ public class BattlefieldManager {
                                     f.getText().setY(y + 30);
                                     f.getText().setText(f.getFieldSlot().getFieldRepresentation().getText());
                                     f.getText().setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 12));
-                                    f.getText().setFill(Color.DARKBLUE);
-                                    BattlefieldManager.setBoardColor(Color.GREEN,game);
+                                    if(f.getFieldSlot().getPlayer().getPlayerNumber()==1) {
+                                        f.getText().setFill(Color.DARKBLUE);
+                                    }
+                                    else
+                                    {
+                                        f.getText().setFill(Color.DARKRED);
+                                    }
+                                    game.cleanUpAfterTurn();
                                 }
                             }
                         }
@@ -143,7 +160,7 @@ public class BattlefieldManager {
                             source = f1;
                         }
                     }
-                    if(source.getFieldSlot()!= null&& f.getFieldSlot()!=null && Field.checkAvailability(source.getFieldSlot().getUnitName().getSight(),source.getFieldID(),f.getFieldID(),game)/*&&(!source.getFieldSlot().getPlayer().equals(f.getFieldSlot().getPlayer()))*/)
+                    if(source.getFieldSlot()!= null&& f.getFieldSlot()!=null&& !source.equals(f) && Field.checkAvailability(source.getFieldSlot().getUnitName().getSight(),source.getFieldID(),f.getFieldID(),game)&&(!source.getFieldSlot().getPlayer().equals(f.getFieldSlot().getPlayer())))
                     {
                         int sourceAttack=AttackCounter.countAttack(source.getFieldSlot(),f.getFieldSlot());
                         int fAttack=AttackCounter.countAttack(f.getFieldSlot(),source.getFieldSlot());
@@ -155,6 +172,10 @@ public class BattlefieldManager {
                         int fAdditionalLifeLost=sourceAttack%f.getFieldSlot().getUnitName().getLife();
                         reduceNumberOfUnits(source,sourceUnitsLeft,sourceAdditionalLifeLost);
                         reduceNumberOfUnits(f,fUnitsLeft,fAdditionalLifeLost);
+                        Glow g = new Glow();
+                        g.setLevel(0);
+                        source.getText().setEffect(g);
+                        game.cleanUpAfterTurn();
                     }
                 }
             }
@@ -204,7 +225,7 @@ public class BattlefieldManager {
             f1.getFieldSquare().setFill(color);
         }
     }
-    public void setDisablingCheckBoxes(CheckBox move, CheckBox moveFromBackpack, CheckBox attack)
+    public void setDisablingCheckBoxes(CheckBox move, CheckBox moveFromBackpack, CheckBox attack,Game game)
     {
         EventHandler disablingEventHandler = new EventHandler<ActionEvent>() {
             @Override
@@ -214,13 +235,48 @@ public class BattlefieldManager {
                     if ("Move".equals(chk.getText())) {
                         moveFromBackpack.setSelected(false);
                         attack.setSelected(false);
+                        if(game.getEnabledFieldID()!=-1)
+                        {
+                            BattlefieldManager.setBoardColor(Color.GREEN,game);
+                            Field enabled=null;
+                            for(Field f: game.getFields())
+                            {
+                                if(f.getFieldID()==game.getEnabledFieldID())
+                                {
+                                    enabled=f;
+                                    break;
+                                }
+                            }
+                            Field.colorFieldsInRange(game,enabled.getFieldID(),Color.DARKORANGE,enabled.getFieldSlot().getUnitName().getSpeed());
+                        }
+
                     } else {
                         if ("Attack".equals(chk.getText())) {
                             move.setSelected(false);
                             moveFromBackpack.setSelected(false);
+                            if(game.getEnabledFieldID()!=-1)
+                            {
+                                BattlefieldManager.setBoardColor(Color.GREEN,game);
+                                Field enabled=null;
+                                for(Field f: game.getFields())
+                                {
+                                    if(f.getFieldID()==game.getEnabledFieldID())
+                                    {
+                                        enabled=f;
+                                        break;
+                                    }
+                                }
+                                Field.colorFieldsInRange(game,enabled.getFieldID(),Color.YELLOW,enabled.getFieldSlot().getUnitName().getSight());
+                            }
+
                         } else {
                             move.setSelected(false);
                             attack.setSelected(false);
+                            if(game.getEnabledFieldID()!=-1)
+                            {
+                                BattlefieldManager.setBoardColor(Color.GREEN,game);
+                            }
+
                         }
                     }
                 }
@@ -247,7 +303,7 @@ public class BattlefieldManager {
     }
     public void moveUnitsFromBackpack(Field f, Slot s,int numberOfUnits)
     {
-        Player p = players[0];
+        Player p = s.getPlayer();
         if(f.getFieldSlot()==null)
         {
             f.setFieldSlot(new Slot(numberOfUnits,s.getUnitName(),game,-2,p));
@@ -258,7 +314,13 @@ public class BattlefieldManager {
             s.getFieldRepresentation().setText(s.getUnitName().getElement().getSymbol()+s.getUnitName().getType().getSymbol()+numberOfUnits);
             f.getText().setText(s.getFieldRepresentation().getText());
             f.getText().setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 12));
-            f.getText().setFill(Color.DARKBLUE);
+            if(p.getPlayerNumber()==1) {
+                f.getText().setFill(Color.DARKBLUE);
+            }
+            else
+            {
+                f.getText().setFill(Color.DARKRED);
+            }
             f.getText().setX(f.getFieldSquare().getX()+5);
             f.getText().setY(f.getFieldSquare().getY()+30);
         }

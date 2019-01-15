@@ -132,32 +132,30 @@ public class Slot {
         EventHandler<MouseEvent> eventHandler=new EventHandler<MouseEvent>()
         {
             @Override
-            public void handle(MouseEvent e)
-            {
-                if(!ifSelected)
-                {
-                    if(!isDroppedOnField()) {
-                        for (Slot s : player.getBackpack()) {
-                            s.setIfSelected(false);
+            public void handle(MouseEvent e) {
+                if (player.getPlayerNumber() == game.getPlayerTurn()) {
+                    if (!ifSelected) {
+                        if (!isDroppedOnField()) {
+                            for (Slot s : player.getBackpack()) {
+                                s.setIfSelected(false);
+                                Glow g = new Glow();
+                                g.setLevel(0);
+                                s.getRepresentation().setEffect(g);
+                            }
+                            ifSelected = true;
+                            game.setEnabledSlotID(slotID);
+                            Glow g = new Glow();
+                            g.setLevel(4);
+                            t.setEffect(g);
+                        }
+                    } else {
+                        if (!isDroppedOnField()) {
+                            ifSelected = false;
+                            game.setEnabledSlotID(-1);
                             Glow g = new Glow();
                             g.setLevel(0);
-                            s.getRepresentation().setEffect(g);
+                            t.setEffect(g);
                         }
-                        ifSelected = true;
-                        game.setEnabledSlotID(slotID);
-                        Glow g = new Glow();
-                        g.setLevel(4);
-                        t.setEffect(g);
-                    }
-                }
-                else
-                {
-                    if(!isDroppedOnField()) {
-                        ifSelected = false;
-                        game.setEnabledSlotID(-1);
-                        Glow g = new Glow();
-                        g.setLevel(0);
-                        t.setEffect(g);
                     }
                 }
             }

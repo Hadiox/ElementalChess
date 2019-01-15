@@ -5,7 +5,9 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -15,8 +17,10 @@ import javafx.application.*;
 import java.util.ArrayList;
 
 public class Game extends Application {
+    private int playerTurn=1;
     private int enabledSlotID = -1;
     private int enabledFieldID = -1;
+    private Text turnLabel;
     private ArrayList<Field> fields;
     private Player[]players;
     public void start(Stage primaryStage)
@@ -53,6 +57,7 @@ public class Game extends Application {
         ArrayList<Text> unitsOfPlayer1 = new ArrayList<>();
         ArrayList<Text> unitsOfPlayer2 = new ArrayList<>();
         ObservableList list = setter.setBoard(root,players,unitsOfPlayer1,unitsOfPlayer2);
+        turnLabel = BoardSetter.createTurnLabel();
         fields = new ArrayList<Field>();
         BattlefieldManager manager = new BattlefieldManager(this,players);
         TextField amountOfUnits = manager.createTextFieldForAmountOfUnits(384,650);
@@ -60,7 +65,7 @@ public class Game extends Application {
         CheckBox moveCheckBox = manager.createCheckBox("Move",600,650);
         CheckBox attackCheckBox = manager.createCheckBox("Attack",700,650);
         CheckBox moveFromBackpackCheckBox = manager.createCheckBox("Move from backpack",800,650);
-        manager.setDisablingCheckBoxes(moveCheckBox,moveFromBackpackCheckBox,attackCheckBox);
+        manager.setDisablingCheckBoxes(moveCheckBox,moveFromBackpackCheckBox,attackCheckBox,this);
         for(int row = 0;row < 12;row++)
         {
             for(int column = 0;column<12;column++)
@@ -71,7 +76,7 @@ public class Game extends Application {
                 fields.add(f);
             }
         }
-        list.addAll(amountOfUnits,amountOfUnitsText,moveCheckBox,attackCheckBox,moveFromBackpackCheckBox);
+        list.addAll(amountOfUnits,amountOfUnitsText,moveCheckBox,attackCheckBox,moveFromBackpackCheckBox,turnLabel);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -102,5 +107,48 @@ public class Game extends Application {
 
     public Player[] getPlayers() {
         return players;
+    }
+
+    public void changePlayerTurn(int playerTurn) {
+        if(playerTurn==1)
+        {
+            this.playerTurn=2;
+        }
+        else
+        {
+            this.playerTurn=1;
+        }
+    }
+
+    public int getPlayerTurn() {
+        return playerTurn;
+    }
+
+    public Text getTurnLabel() {
+        return turnLabel;
+    }
+
+    public void setTurnLabel(int playerNumber) {
+        this.turnLabel.setText("Player "+playerNumber+" has turn");
+    }
+    public void cleanUpAfterTurn()
+    {
+        for(Slot slot:this.getPlayers()[this.getPlayerTurn()-1].getBackpack())
+        {
+            Glow g = new Glow();
+            g.setLevel(0);
+            slot.getRepresentation().setEffect(g);
+        }
+        for(Field f:this.getFields())
+        {
+            Glow g = new Glow();
+            g.setLevel(0);
+            f.getText().setEffect(g);
+        }
+        this.changePlayerTurn(this.getPlayerTurn());
+        this.setEnabledSlotID(-1);
+        this.setEnabledFieldID(-1);
+        this.setTurnLabel(this.getPlayerTurn());
+        BattlefieldManager.setBoardColor(Color.GREEN,this);
     }
 }
