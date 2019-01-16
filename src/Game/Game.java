@@ -48,11 +48,11 @@ public class Game extends Application {
         }
         // Graphics---------------------------------------------------------------------------------
         Group root = new Group();
-      //  String url1 ="https://images.unsplash.com/photo-1519120693210-d47b03b31d77?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=3b8d462021896b6a8825629fb69a04b4&auto=format&fit=crop&w=1537&q=80";
+        String url1 ="https://images.unsplash.com/photo-1519120693210-d47b03b31d77?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=3b8d462021896b6a8825629fb69a04b4&auto=format&fit=crop&w=1537&q=80";
         Scene scene = new Scene(root,1366,768);
-        //Image img1 = new Image(url1);
-        //ImagePattern pat = new ImagePattern(img1);
-        //scene.setFill(pat);
+        Image img1 = new Image(url1);
+        ImagePattern pat = new ImagePattern(img1);
+        scene.setFill(pat);
         BoardSetter setter = new BoardSetter(this,players);
         ArrayList<Text> unitsOfPlayer1 = new ArrayList<>();
         ArrayList<Text> unitsOfPlayer2 = new ArrayList<>();
@@ -76,7 +76,7 @@ public class Game extends Application {
                 fields.add(f);
             }
         }
-        list.addAll(amountOfUnits,amountOfUnitsText,moveCheckBox,attackCheckBox,moveFromBackpackCheckBox,turnLabel);
+        list.addAll(amountOfUnits,amountOfUnitsText,moveCheckBox,attackCheckBox,moveFromBackpackCheckBox,turnLabel,BoardSetter.createExitButton(), BoardSetter.createPlayerLabel(1,100,30,Color.DARKBLUE),BoardSetter.createPlayerLabel(2,1155,30,Color.DARKRED));
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -133,6 +133,46 @@ public class Game extends Application {
     }
     public void cleanUpAfterTurn()
     {
+        boolean ifWon = true;
+        boolean ifPlayerOneWon = false;
+        boolean ifPlayerTwoWon = false;
+        for(Slot s : this.getPlayers()[0].getBackpack())
+        {
+            if(!s.isDroppedOnField())
+            {
+                ifWon=false;
+            }
+        }
+        for(Field f:this.getFields())
+        {
+            if(f.getFieldSlot()!=null && f.getFieldSlot().getPlayer().getPlayerNumber()==1)
+            {
+                ifWon=false;
+            }
+        }
+        if(ifWon==true)
+        {
+            ifPlayerTwoWon=true;
+        }
+        ifWon=true;
+        for(Slot s : this.getPlayers()[1].getBackpack())
+        {
+            if(!s.isDroppedOnField())
+            {
+                ifWon=false;
+            }
+        }
+        for(Field f:this.getFields())
+        {
+            if(f.getFieldSlot()!=null && f.getFieldSlot().getPlayer().getPlayerNumber()==2)
+            {
+                ifWon=false;
+            }
+        }
+        if(ifWon==true)
+        {
+            ifPlayerOneWon=true;
+        }
         for(Slot slot:this.getPlayers()[this.getPlayerTurn()-1].getBackpack())
         {
             Glow g = new Glow();
@@ -150,5 +190,28 @@ public class Game extends Application {
         this.setEnabledFieldID(-1);
         this.setTurnLabel(this.getPlayerTurn());
         BattlefieldManager.setBoardColor(Color.GREEN,this);
+        if(ifPlayerOneWon)
+        {
+            if(ifPlayerTwoWon)
+            {
+                this.getTurnLabel().setX(575);
+                this.getTurnLabel().setText("Game over! Draw!");
+            }
+            else
+            {
+                this.getTurnLabel().setX(550);
+                this.getTurnLabel().setText("Game over! Player 1 won!");
+                return;
+            }
+        }
+        else
+        {
+            if(ifPlayerTwoWon)
+            {
+                this.getTurnLabel().setX(550);
+                this.getTurnLabel().setText("Game over! Player 2 won!");
+                return;
+            }
+        }
     }
 }

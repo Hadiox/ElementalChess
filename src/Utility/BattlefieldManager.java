@@ -188,9 +188,9 @@ public class BattlefieldManager {
     }
     public Text createAmountOfUnitsText(double x, double y)
     {
-        Text t = new Text(x,y,"Liczba jednostek");
+        Text t = new Text(x,y,"Number of units");
         t.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 12));
-        t.setFill(Color.BLACK);
+        t.setFill(Color.ORANGE);
         return t;
     }
     public static void reduceNumberOfUnits(Field f,int numberOfUnits,int additionalLifeLost)
@@ -215,7 +215,7 @@ public class BattlefieldManager {
         checkbox.setLayoutX(x);
         checkbox.setLayoutY(y);
         checkbox.setFont(Font.font("arial",FontWeight.BOLD,FontPosture.REGULAR,12));
-        checkbox.setTextFill(Color.BLACK);
+        checkbox.setTextFill(Color.ORANGE);
         return checkbox;
     }
     public static void setBoardColor(Color color, Game game)
@@ -297,7 +297,7 @@ public class BattlefieldManager {
         else
         {
             s.getRepresentation().setVisible(false);
-            this.moveUnitsFromBackpack(f,s,numberOfUnits);
+            this.moveUnitsFromBackpack(f,s,s.getNumberOfUnits());
             s.setDroppedOnField(true);
         }
     }

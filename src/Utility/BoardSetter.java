@@ -1,9 +1,11 @@
 package Utility;
 
 import Game.Game;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -48,12 +50,12 @@ public class BoardSetter {
             if(a<12)
             {
                 Text t = new Text(383+(a*50)+20,40,Character.toString((char)(65+a)));
-                t.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR,20));
-                t.setFill(Color.WHITE);
+                t.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR,16));
+                t.setFill(Color.ORANGE);
                 list.add(t);
                 Text t2 = new Text(360,44+(a*50)+30,a.toString());
-                t2.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR,20));
-                t2.setFill(Color.WHITE);
+                t2.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR,16));
+                t2.setFill(Color.ORANGE);
                 list.add(t2);
             }
             l.setVisible(true);
@@ -93,10 +95,36 @@ public class BoardSetter {
     public static Text createTurnLabel()
     {
         Text turnLabel = new Text("Player "+1+" has turn");
-        turnLabel.setFont(Font.font("arial",FontWeight.BOLD,FontPosture.REGULAR,30));
-        turnLabel.setFill(Color.BLACK);
-        turnLabel.setX(550);
-        turnLabel.setY(25);
+        turnLabel.setFont(Font.font("arial",FontWeight.BOLD,FontPosture.REGULAR,24));
+        turnLabel.setFill(Color.ORANGE);
+        turnLabel.setX(600);
+        turnLabel.setY(20);
         return turnLabel;
+    }
+    public static Button createExitButton()
+    {
+        Button exitButton = new Button("Exit");
+        exitButton.setLayoutX(1275);
+        exitButton.setLayoutY(675);
+        exitButton.setScaleX(1.5);
+        exitButton.setScaleY(1.5);
+        EventHandler<MouseEvent>eventClick = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Platform.exit();
+            }
+        };
+        exitButton.addEventFilter(MouseEvent.MOUSE_CLICKED,eventClick);
+        return exitButton;
+    }
+    public static Text createPlayerLabel(int playerNumber,double x, double y,Color color)
+    {
+        Text label = new Text();
+        label.setText("Player "+playerNumber);
+        label.setFill(color);
+        label.setFont(Font.font("arial",FontWeight.BOLD,FontPosture.REGULAR,30));
+        label.setX(x);
+        label.setY(y);
+        return label;
     }
 }

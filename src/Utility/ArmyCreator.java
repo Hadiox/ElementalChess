@@ -39,7 +39,13 @@ public class ArmyCreator {
             String command = MenuHandler.getCommand();
             if(command.equals("finish"))
             {
-                return;
+                if(p.getBackpack().isEmpty())
+                {
+                    System.out.println("You did not choose any units! Try again!");
+                }
+                else {
+                    return;
+                }
             }
             else
             {

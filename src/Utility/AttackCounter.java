@@ -56,7 +56,6 @@ public class AttackCounter {
         {
             attack+=AttackCounter.countAttackOfOneUnit(attacker.getUnitName(),defender.getUnitName());
         }
-        System.out.println(attack);
         return attack;
     }
 }
