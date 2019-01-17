@@ -6,20 +6,20 @@ import Units.Templar;
 import Units.Unit;
 import Game.Game;
 
-public class ArmyCreator {
+class ArmyCreator {
     private Player[] players;
-    public ArmyCreator()
+     ArmyCreator()
     {
         Player[] players = new Player[2];
-        players[0] = new Player("Player 1",1);
-        players[1] = new Player("Player 2",2);
+        players[0] = new Player(1);
+        players[1] = new Player(2);
         this.players = players;
     }
 
-    public Player[] getPlayers() {
+    Player[] getPlayers() {
         return players;
     }
-    public void setArmy(Game game)
+    void setArmy(Game game)
     {
         System.out.println("First Player 1 will set his army. There are 3 types of units: Archer, Mage and Templar.\n" +
                 "They can have 1 of 4 elements: Abyss, Fortress, Forest and Shadow. You have 1000 points to spend\n" +
@@ -31,7 +31,7 @@ public class ArmyCreator {
         setForPlayer(this.players[1],game);
         System.out.println("Finished choosing army!");
     }
-    public void setForPlayer(Player p,Game game)
+    private void setForPlayer(Player p,Game game)
     {
         int slotID = 0;
         while(true)
@@ -49,7 +49,7 @@ public class ArmyCreator {
             }
             else
             {
-                String [] com = command.toString().split(" ");
+                String [] com = command.split(" ");
                 if(com.length != 3)
                 {
                     System.out.println("Typed wrong command! Try again.");
@@ -101,7 +101,7 @@ public class ArmyCreator {
             }
         }
     }
-    public Unit chooseUnit(String unit, String element) throws UnexpectedUnitNameException,UnexpectedElementNameException
+    private Unit chooseUnit(String unit, String element) throws UnexpectedUnitNameException,UnexpectedElementNameException
     {
         switch(unit)
         {
@@ -123,7 +123,8 @@ public class ArmyCreator {
             }
         }
     }
-    public Element chooseElement(String element) throws UnexpectedElementNameException
+
+    private Element chooseElement(String element) throws UnexpectedElementNameException
     {
         switch(element)
         {

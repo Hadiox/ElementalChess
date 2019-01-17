@@ -1,11 +1,11 @@
 package Utility;
 import Units.Unit;
-public class AttackCounter {
-    public static int countAttackOfOneUnit(Unit attacker, Unit defender)
+ class AttackCounter {
+    private static int countAttackOfOneUnit(Unit attacker, Unit defender)
     {
         int attack = Unit.getAttackMin() + ((int)((double)(Unit.getAttackMax() - Unit.getAttackMin())*Math.random()));
 
-        int attackElement=0;
+        int attackElement;
         if(attacker.getElement().getElementStrong() == defender.getElement().getElementName())
         {
             attackElement =(int)((double) (attacker.getElement().getElementStrongValueMax()-attacker.getElement().getElementStrongValueMin())*Math.random());
@@ -23,7 +23,7 @@ public class AttackCounter {
                 attackElement = 0;
             }
         }
-        int attackType=0;
+        int attackType;
         if(attacker.getType().getTypeStrong() == defender.getType().getTypeName())
         {
             attackType =(int)((double) (attacker.getType().getTypeStrongValueMax()-attacker.getType().getTypeStrongValueMin())*Math.random());
@@ -49,7 +49,7 @@ public class AttackCounter {
         }
         return attack;
     }
-    public static int countAttack(Slot attacker,Slot defender)
+    static int countAttack(Slot attacker,Slot defender)
     {
         int attack=0;
         for(int a=0;a<attacker.getNumberOfUnits();a++)

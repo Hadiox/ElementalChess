@@ -1,14 +1,17 @@
 package Utility;
 
-import Game.Game;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.effect.Glow;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -19,24 +22,21 @@ import javafx.scene.text.Text;
 import java.util.ArrayList;
 
 public class BoardSetter {
-    private Game game;
-    private Player[] players;
-    public Game getGame() {
-        return game;
+
+    public void createBackground(Scene scene)
+    {
+        String url1 ="https://images.unsplash.com/photo-1519120693210-d47b03b31d77?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=3b8d462021896b6a8825629fb69a04b4&auto=format&fit=crop&w=1537&q=80";
+        Image img1 = new Image(url1);
+        ImagePattern pat = new ImagePattern(img1);
+        scene.setFill(pat);
+
     }
 
-    public Player[] getPlayers() {
-        return players;
-    }
-
-    public BoardSetter(Game game, Player[]players) {
-        this.game = game;
-        this.players=players;
-    }
-
-    public ObservableList setBoard(Group root, Player [] players, ArrayList<Text>unitsOfPlayer1, ArrayList<Text>unitsOfPlayer2)
+    public ObservableList setBoard(Group root, Player [] players)
     {
         ObservableList list = root.getChildren();
+        ArrayList<Text> unitsOfPlayer1;
+        ArrayList<Text> unitsOfPlayer2;
         Rectangle board = new Rectangle(383,44,600,600);
         Rectangle p1Board = new Rectangle(96,44,192,600);
         Rectangle p2Board = new Rectangle(1079,44,192,600);
@@ -83,7 +83,7 @@ public class BoardSetter {
         }
         return list;
     }
-    public ArrayList<Text> makePlayersUnitsVisible(Player p)
+    private ArrayList<Text> makePlayersUnitsVisible(Player p)
     {
         ArrayList<Text> result = new ArrayList<>();
         for(Slot s :p.getBackpack())
@@ -126,5 +126,11 @@ public class BoardSetter {
         label.setX(x);
         label.setY(y);
         return label;
+    }
+    public static void createGlow(double level, Node node)
+    {
+        Glow g = new Glow();
+        g.setLevel(level);
+        node.setEffect(g);
     }
 }

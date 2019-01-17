@@ -1,18 +1,17 @@
 package Units;
 
-import javafx.scene.text.Text;
 
 public class Type {
     private TypeName typeName;
-    private static int typeStrongValueMin = 5;
-    private static int typeStrongValueMax = 10;
+    private final static int typeStrongValueMin = 5;
+    private final static int typeStrongValueMax = 10;
     private TypeName typeStrong;
-    private static int typeVulnerableValueMin = 5;
-    private static int typeVulnerableValueMax = 10;
+    private final static int typeVulnerableValueMin = 5;
+    private final static int typeVulnerableValueMax = 10;
     private TypeName typeVulnerable;
     private String symbol;
 
-    public void setSymbol(String symbol) {
+    private void setSymbol(String symbol) {
         this.symbol = symbol;
     }
 
@@ -20,22 +19,22 @@ public class Type {
         return symbol;
     }
 
-    public void setTypeVulnerable(TypeName typeVulnerable) {
+    private void setTypeVulnerable(TypeName typeVulnerable) {
         this.typeVulnerable = typeVulnerable;
     }
 
-    public static int getTypeVulnerableValueMin() {
+    public int getTypeVulnerableValueMin() {
         return typeVulnerableValueMin;
     }
 
-    public static int getTypeVulnerableValueMax() {
+    public int getTypeVulnerableValueMax() {
         return typeVulnerableValueMax;
     }
 
     public TypeName getTypeVulnerable() {
         return typeVulnerable;
     }
-    public Type(TypeName type, TypeName typeStrong, TypeName typeVulnerable,String symbol) {
+    Type(TypeName type, TypeName typeStrong, TypeName typeVulnerable,String symbol) {
         this.setTypeName(type);
         this.setTypeStrong(typeStrong);
         this.setTypeVulnerable(typeVulnerable);
@@ -46,11 +45,11 @@ public class Type {
         return typeName;
     }
 
-    public static int getTypeStrongValueMin() {
+    public int getTypeStrongValueMin() {
         return typeStrongValueMin;
     }
 
-    public static int getTypeStrongValueMax() {
+    public int getTypeStrongValueMax() {
         return typeStrongValueMax;
     }
 
@@ -58,11 +57,11 @@ public class Type {
         return typeStrong;
     }
 
-    public void setTypeName(TypeName type) {
+    private void setTypeName(TypeName type) {
         this.typeName = type;
     }
 
-    public void setTypeStrong(TypeName typeStrong) {
+    private void setTypeStrong(TypeName typeStrong) {
         this.typeStrong = typeStrong;
     }
 }

@@ -1,7 +1,7 @@
 package Utility;
 
-public class UnexpectedElementNameException extends Exception {
-    public void exportError()
+class UnexpectedElementNameException extends Exception {
+    void exportError()
     {
         System.out.println("Wrong element name! Choose unit one more time.");
     }

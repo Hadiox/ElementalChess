@@ -3,7 +3,6 @@ package Utility;
 import Game.Game;
 import javafx.event.EventHandler;
 import javafx.scene.control.CheckBox;
-import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -15,7 +14,7 @@ public class Field {
     private Slot fieldSlot;
     private int fieldID;
 
-    public Field(int fieldID,Game game,CheckBox moveFromBackpackCheckBox, CheckBox moveCheckBox, CheckBox attackCheckBox) {
+     Field(int fieldID,Game game, CheckBox moveCheckBox, CheckBox attackCheckBox) {
         this.fieldSquare = null;
         this.fieldSlot = null;
         this.fieldID = fieldID;
@@ -25,22 +24,16 @@ public class Field {
             public void handle(MouseEvent event) {
                 if(fieldSlot!=null && fieldSlot.getPlayer().getPlayerNumber()==game.getPlayerTurn()) {
                     if (fieldID == game.getEnabledFieldID()) {
-                        Glow g = new Glow();
-                        g.setLevel(0);
-                        text.setEffect(g);
+                        BoardSetter.createGlow(0,text);
                         game.setEnabledFieldID(-1);
                         BattlefieldManager.setBoardColor(Color.GREEN, game);
                     } else {
                         for (Field f : game.getFields()) {
-                            Glow g = new Glow();
-                            g.setLevel(0);
-                            f.getText().setEffect(g);
+                            BoardSetter.createGlow(0,f.getText());
                             f.getFieldSquare().setFill(Color.GREEN);
                         }
                         game.setEnabledFieldID(fieldID);
-                        Glow g = new Glow();
-                        g.setLevel(4);
-                        text.setEffect(g);
+                        BoardSetter.createGlow(4,text);
                         if (moveCheckBox.isSelected()) {
                             colorFieldsInRange(game, fieldID, Color.DARKORANGE, fieldSlot.getUnitName().getSpeed());
                         } else {
@@ -55,7 +48,7 @@ public class Field {
         };
         this.text.addEventFilter(MouseEvent.MOUSE_CLICKED,eventMouseClick);
     }
-    public static void colorFieldsInRange(Game game, int fieldID,Color color,int range)
+    static void colorFieldsInRange(Game game, int fieldID,Color color,int range)
     {
         for (Field f : game.getFields()) {
             if (Field.checkAvailability(range, fieldID, f.getFieldID(), game)) {
@@ -63,24 +56,17 @@ public class Field {
             }
         }
     }
-    public void setText(Text text) {
-        this.text = text;
-    }
 
     public Text getText() {
         return text;
     }
 
-    public void setFieldSquare(Rectangle fieldSquare) {
+    void setFieldSquare(Rectangle fieldSquare) {
         this.fieldSquare = fieldSquare;
     }
 
-    public void setFieldSlot(Slot fieldSlot) {
+    void setFieldSlot(Slot fieldSlot) {
         this.fieldSlot = fieldSlot;
-    }
-
-    public void setFieldID(int fieldID) {
-        this.fieldID = fieldID;
     }
 
     public Rectangle getFieldSquare() {
@@ -91,10 +77,10 @@ public class Field {
         return fieldSlot;
     }
 
-    public int getFieldID() {
+    int getFieldID() {
         return fieldID;
     }
-    public static boolean checkAvailability(int steps,int actualFieldID,int targetFieldID, Game game)
+    static boolean checkAvailability(int steps,int actualFieldID,int targetFieldID, Game game)
     {
         if(steps>=0 && actualFieldID==targetFieldID)
         {

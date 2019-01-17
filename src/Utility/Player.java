@@ -1,40 +1,22 @@
 package Utility;
 import java.util.ArrayList;
 public class Player {
-    private String playerName;
     private int playerNumber;
     private ArrayList<Slot> backpack;
     private int points;
 
-    public void setPoints(int points) {
+    void setPoints(int points) {
         this.points = points;
     }
 
-    public int getPoints() {
+    int getPoints() {
         return points;
     }
 
-    public Player(String playerName, int playerNumber) {
-        this.playerName = playerName;
+    Player(int playerNumber) {
         this.playerNumber = playerNumber;
-        this.backpack = new ArrayList<Slot>();
+        this.backpack = new ArrayList<>();
         this.points = 1000;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
-    public void setPlayerNumber(int playerNumber) {
-        this.playerNumber = playerNumber;
-    }
-
-    public void setBackpack(ArrayList<Slot> backpack) {
-        this.backpack = backpack;
-    }
-
-    public String getPlayerName() {
-        return playerName;
     }
 
     public int getPlayerNumber() {

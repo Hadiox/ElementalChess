@@ -1,7 +1,7 @@
 package Utility;
 
-public class UnexpectedUnitNameException extends Exception {
-    public void exportError()
+class UnexpectedUnitNameException extends Exception {
+void exportError()
     {
         System.out.println("You wrote wrong unit name!");
     }

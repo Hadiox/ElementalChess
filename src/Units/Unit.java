@@ -5,12 +5,12 @@ import Elements.Element;
 public class Unit {
     private Type type;
     private Element element;
-    private static int attackMin = 30;
-    private static int attackMax = 40;
+    private final static int attackMin = 30;
+    private final static int attackMax = 40;
     private int life;
     private int sight;
     private int speed;
-    private static int unitCost=5;
+    private final static int unitCost=5;
     public static int getUnitCost() {
         return unitCost;
     }
@@ -50,15 +50,15 @@ public class Unit {
         this.element = element;
     }
 
-    public void setLife(int life) {
-        this.life = life;
+    void setLife() {
+        this.life = 100;
     }
 
-    public void setSight(int sight) {
+    void setSight(int sight) {
         this.sight = sight;
     }
 
-    public void setSpeed(int speed) {
+    void setSpeed(int speed) {
         this.speed = speed;
     }
 }

@@ -1,15 +1,15 @@
 package Elements;
 public abstract class Element {
     private ElementName elementName;
-    private static int elementStrongValueMin = 5;
-    private static int elementStrongValueMax = 10;
+    private final static int elementStrongValueMin = 5;
+    private final static int elementStrongValueMax = 10;
     private ElementName elementStrong;
-    private static int elementVulnerableValueMin = 5;
-    private static int elementVulnerableValueMax = 10;
+    private final static int elementVulnerableValueMin = 5;
+    private final static int elementVulnerableValueMax = 10;
     private ElementName elementVulnerable;
     private String symbol;
 
-    public void setSymbol(String symbol) {
+    void setSymbol(String symbol) {
         this.symbol = symbol;
     }
 
@@ -17,15 +17,15 @@ public abstract class Element {
         return symbol;
     }
 
-    public void setElementVulnerable(ElementName elementVulnerable) {
+     void setElementVulnerable(ElementName elementVulnerable) {
         this.elementVulnerable = elementVulnerable;
     }
 
-    public static int getElementVulnerableValueMin() {
+    public int getElementVulnerableValueMin() {
         return elementVulnerableValueMin;
     }
 
-    public static int getElementVulnerableValueMax() {
+    public int getElementVulnerableValueMax() {
         return elementVulnerableValueMax;
     }
 
@@ -37,11 +37,11 @@ public abstract class Element {
         return elementName;
     }
 
-    public static int getElementStrongValueMin() {
+    public int getElementStrongValueMin() {
         return elementStrongValueMin;
     }
 
-    public static int getElementStrongValueMax() {
+    public int getElementStrongValueMax() {
         return elementStrongValueMax;
     }
 
@@ -49,11 +49,11 @@ public abstract class Element {
         return elementStrong;
     }
 
-    public void setElementName(ElementName element) {
+    void setElementName(ElementName element) {
         this.elementName = element;
     }
 
-    public void setElementStrong(ElementName elementStrong) {
+    void setElementStrong(ElementName elementStrong) {
         this.elementStrong = elementStrong;
     }
 }
