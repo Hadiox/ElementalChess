@@ -1,6 +1,7 @@
 package Units;
 
 import Elements.Element;
+import Elements.ElementName;
 
 public class Unit {
     private Type type;
@@ -20,6 +21,74 @@ public class Unit {
 
     public Element getElement() {
         return element;
+    }
+
+    public ElementName getElementStrong()
+    {
+        return this.getElement().getElementStrong();
+    }
+    public ElementName getElementVulnerable()
+    {
+        return this.getElement().getElementVulnerable();
+    }
+
+    public int getElementVulnerableValueMin()
+    {
+        return this.getElement().getElementVulnerableValueMin();
+    }
+
+    public int getElementVulnerableValueMax()
+    {
+        return this.getElement().getElementVulnerableValueMax();
+    }
+
+    public int getElementStrongValueMin()
+    {
+        return this.getElement().getElementStrongValueMin();
+    }
+
+    public int getElementStrongValueMax()
+    {
+        return this.getElement().getElementStrongValueMax();
+    }
+
+    public ElementName getElementName()
+    {
+        return this.getElement().getElementName();
+    }
+
+    public TypeName getTypeStrong()
+    {
+        return this.getType().getTypeStrong();
+    }
+    public TypeName getTypeVulnerable()
+    {
+        return this.getType().getTypeVulnerable();
+    }
+
+    public int getTypeVulnerableValueMin()
+    {
+        return this.getType().getTypeVulnerableValueMin();
+    }
+
+    public int getTypeVulnerableValueMax()
+    {
+        return this.getType().getTypeVulnerableValueMax();
+    }
+
+    public int getTypeStrongValueMin()
+    {
+        return this.getType().getTypeStrongValueMin();
+    }
+
+    public int getTypeStrongValueMax()
+    {
+        return this.getType().getTypeStrongValueMax();
+    }
+
+    public TypeName getTypeName()
+    {
+        return this.getType().getTypeName();
     }
 
     public static int getAttackMin() {

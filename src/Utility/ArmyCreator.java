@@ -31,7 +31,7 @@ class ArmyCreator {
         setForPlayer(this.players[1],game);
         System.out.println("Finished choosing army!");
     }
-    private void setForPlayer(Player p,Game game)
+    private void setForPlayer(Player processedPlayer, Game game)
     {
         int slotID = 0;
         while(true)
@@ -39,7 +39,7 @@ class ArmyCreator {
             String command = MenuHandler.getCommand();
             if(command.equals("finish"))
             {
-                if(p.getBackpack().isEmpty())
+                if(processedPlayer.getBackpack().isEmpty())
                 {
                     System.out.println("You did not choose any units! Try again!");
                 }
@@ -49,55 +49,47 @@ class ArmyCreator {
             }
             else
             {
-                String [] com = command.split(" ");
-                if(com.length != 3)
+               processCommand(command, processedPlayer,slotID,game);
+            }
+        }
+    }
+    private void processCommand(String command, Player processedPlayer, int slotID, Game game)
+    {
+        String [] commandSplit = command.split(" ");
+        if(commandSplit.length != 3)
+        {
+            System.out.println("Typed wrong command! Try again.");
+        }
+        else
+        {
+            try
+            {
+                Slot slotInserted = new Slot(Integer.parseInt(commandSplit[2]),chooseUnit(commandSplit[1], commandSplit[0]),game,slotID, processedPlayer);
+                if(slotInserted.getCost()> processedPlayer.getPoints())
                 {
-                    System.out.println("Typed wrong command! Try again.");
+                    System.out.println("You can't afford such amount of units! Get a cheaper slot!");
                 }
                 else
                 {
-                    try
+                    boolean ifExists = checkExistanceInBackpack(processedPlayer,slotInserted);
+                    if(!ifExists)
                     {
-                        Slot s = new Slot(Integer.parseInt(com[2]),chooseUnit(com[1],com[0]),game,slotID,p);
-                        if(s.getCost()>p.getPoints())
-                        {
-                            System.out.println("You can't afford such units! Get cheaper slot!");
-                        }
-                        else
-                        {
-                            boolean flag = false;
-                            for(Slot s2:p.getBackpack())
-                            {
-                                if(s2.getUnitName().getElement().getElementName().equals(s.getUnitName().getElement().getElementName()) && s2.getUnitName().getType().getTypeName().equals(s.getUnitName().getType().getTypeName()))
-                                {
-                                    flag = true;
-                                    s2.setNumberOfUnits(s2.getNumberOfUnits()+s.getNumberOfUnits());
-                                    p.setPoints(p.getPoints()-s.getCost());
-                                    System.out.println("Units bought! Now you have: " + p.getPoints() + " points left!");
-                                }
-                            }
-                            if(!flag)
-                            {
-                                p.getBackpack().add(s);
-                                p.setPoints(p.getPoints()-s.getCost());
-                                System.out.println("Units bought! Now you have: " + p.getPoints() + " points left!");
-                                slotID++;
-                            }
-                        }
-                    }
-                    catch(UnexpectedElementNameException e)
-                    {
-                        e.exportError();
-                    }
-                    catch(UnexpectedUnitNameException e)
-                    {
-                        e.exportError();
-                    }
-                    catch(NumberFormatException e)
-                    {
-                        System.out.println("Typed a wrong number! Try again!");
+                        addNewSlot(processedPlayer,slotInserted);
+                        slotID++;
                     }
                 }
+            }
+            catch(UnexpectedElementNameException e)
+            {
+                e.exportError();
+            }
+            catch(UnexpectedUnitNameException e)
+            {
+                e.exportError();
+            }
+            catch(NumberFormatException e)
+            {
+                System.out.println("Typed a wrong number! Try again!");
             }
         }
     }
@@ -149,5 +141,32 @@ class ArmyCreator {
                 throw new UnexpectedElementNameException();
             }
         }
+    }
+    private boolean checkExistanceInBackpack(Player processedPlayer,Slot slotInserted)
+    {
+        boolean ifExists = false;
+        for(Slot slotInBackpack : processedPlayer.getBackpack())
+        {
+            if(slotInBackpack.getSlotElementName().equals(slotInserted.getSlotElementName()) && slotInBackpack.getSlotTypeName().equals(slotInserted.getSlotTypeName()))
+            {
+                ifExists = true;
+                addToExistingSlot(slotInBackpack,processedPlayer,slotInserted);
+            }
+        }
+        return ifExists;
+    }
+    private void addToExistingSlot(Slot slotInBackpack,Player processedPlayer,Slot slotInserted)
+    {
+        slotInBackpack.setNumberOfUnits(slotInBackpack.getNumberOfUnits()+ slotInserted.getNumberOfUnits());
+        processedPlayer.setPoints(processedPlayer.getPoints()- slotInserted.getCost());
+        System.out.println("Units bought! Now you have: " + processedPlayer.getPoints() + " points left!");
+
+    }
+    private void addNewSlot(Player processedPlayer,Slot slotInserted)
+    {
+        processedPlayer.getBackpack().add(slotInserted);
+        processedPlayer.setPoints(processedPlayer.getPoints()- slotInserted.getCost());
+        System.out.println("Units bought! Now you have: " + processedPlayer.getPoints() + " points left!");
+
     }
 }

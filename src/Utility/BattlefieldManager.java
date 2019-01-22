@@ -22,14 +22,14 @@ public class BattlefieldManager {
         this.players = players;
     }
 
-    public TextField createTextFieldForAmountOfUnits(double x, double y)
+    public TextField createAmountOfUnitsTextField(double x, double y)
     {
-        TextField tf = new TextField();
-        tf.setLayoutX(x);
-        tf.setLayoutY(y);
-        tf.setPrefWidth(60);
-        tf.setPrefHeight(10);
-        return tf;
+        TextField amountOfUnitsText = new TextField();
+        amountOfUnitsText.setLayoutX(x);
+        amountOfUnitsText.setLayoutY(y);
+        amountOfUnitsText.setPrefWidth(60);
+        amountOfUnitsText.setPrefHeight(10);
+        return amountOfUnitsText;
     }
     public Field createField(double x, double y,int ID,TextField amountOfUnits, CheckBox moveFromBackpackCheckbox, CheckBox moveCheckBox, CheckBox attackCheckBox)
     {
@@ -99,10 +99,10 @@ public class BattlefieldManager {
     }
     public Text createAmountOfUnitsText(double x, double y)
     {
-        Text t = new Text(x,y,"Number of units");
-        t.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 12));
-        t.setFill(Color.ORANGE);
-        return t;
+        Text amountOfUnitsText = new Text(x,y,"Number of units");
+        amountOfUnitsText.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 12));
+        amountOfUnitsText.setFill(Color.ORANGE);
+        return amountOfUnitsText;
     }
     static void reduceNumberOfUnits(Field fieldReduced,int numberOfUnits,int additionalLifeLost)
     {
@@ -113,9 +113,9 @@ public class BattlefieldManager {
         }
         else
         {
-            fieldReduced.getFieldSlot().setNumberOfUnits(numberOfUnits);
-            fieldReduced.getFieldSlot().getFieldRepresentation().setText(fieldReduced.getFieldSlot().getUnitName().getElement().getSymbol()+fieldReduced.getFieldSlot().getUnitName().getType().getSymbol()+fieldReduced.getFieldSlot().getNumberOfUnits());
-            fieldReduced.getText().setText(fieldReduced.getFieldSlot().getFieldRepresentation().getText());
+            fieldReduced.setNumberOfUnits(numberOfUnits);
+            fieldReduced.getFieldRepresentation().setText(fieldReduced.getElementSymbol()+fieldReduced.getTypeSymbol()+fieldReduced.getNumberOfUnits());
+            fieldReduced.getText().setText(fieldReduced.getFieldRepresentation().getText());
             fieldReduced.getFieldSlot().setLifeLost(additionalLifeLost);
         }
     }
@@ -131,9 +131,9 @@ public class BattlefieldManager {
     }
     public static void setBoardColor(Color color, Game game)
     {
-        for(Field f1:game.getFields())
+        for(Field f:game.getFields())
         {
-            f1.getFieldSquare().setFill(color);
+            f.getFieldSquare().setFill(color);
         }
     }
     public void setDisablingCheckBoxes(CheckBox move, CheckBox moveFromBackpack, CheckBox attack,Game game)
@@ -149,22 +149,9 @@ public class BattlefieldManager {
                         if(game.getEnabledFieldID()!=-1)
                         {
                             BattlefieldManager.setBoardColor(Color.GREEN,game);
-                            Field enabled=null;
-                            for(Field f: game.getFields())
-                            {
-                                if(f.getFieldID()==game.getEnabledFieldID())
-                                {
-                                    enabled=f;
-                                    break;
-                                }
-                            }
-                            try {
-                                Field.colorFieldsInRange(game, enabled.getFieldID(), Color.DARKORANGE, enabled.getFieldSlot().getUnitName().getSpeed());
-                            }
-                            catch(NullPointerException e)
-                            {
+                            Field enabled=chooseEnabledField(game);
+                            Field.colorFieldsInRange(game, enabled.getFieldID(), Color.DARKORANGE, enabled.getFieldSlot().getUnitName().getSpeed());
 
-                            }
                         }
 
                     } else {
@@ -174,15 +161,7 @@ public class BattlefieldManager {
                             if(game.getEnabledFieldID()!=-1)
                             {
                                 BattlefieldManager.setBoardColor(Color.GREEN,game);
-                                Field enabled=null;
-                                for(Field f: game.getFields())
-                                {
-                                    if(f.getFieldID()==game.getEnabledFieldID())
-                                    {
-                                        enabled=f;
-                                        break;
-                                    }
-                                }
+                                Field enabled=chooseEnabledField(game);
                                 Field.colorFieldsInRange(game,enabled.getFieldID(),Color.YELLOW,enabled.getFieldSlot().getUnitName().getSight());
                             }
 
@@ -203,49 +182,62 @@ public class BattlefieldManager {
         move.setOnAction(disablingEventHandler);
         attack.setOnAction(disablingEventHandler);
     }
-     void checkAmountOfChosenUnits(Field f,Slot s,int numberOfUnits)
+     void checkAmountOfChosenUnits(Field targetField, Slot sourceSlot, int numberOfUnits)
     {
-        if(numberOfUnits<s.getNumberOfUnits())
+        if(numberOfUnits< sourceSlot.getNumberOfUnits())
         {
-            s.setNumberOfUnits(s.getNumberOfUnits()-numberOfUnits);
-            s.getRepresentation().setText(s.getUnitName().getElement().getElementName().element+ " "+s.getUnitName().getType().getTypeName().type+" "+s.getNumberOfUnits());
-            this.moveUnitsFromBackpack(f,s,numberOfUnits);
+            sourceSlot.setNumberOfUnits(sourceSlot.getNumberOfUnits()-numberOfUnits);
+            sourceSlot.getRepresentation().setText(sourceSlot.getSlotElementName().element+ " "+ sourceSlot.getSlotTypeName().type+" "+ sourceSlot.getNumberOfUnits());
+            this.moveUnitsFromBackpack(targetField, sourceSlot,numberOfUnits);
         }
         else
         {
-            s.getRepresentation().setVisible(false);
-            this.moveUnitsFromBackpack(f,s,s.getNumberOfUnits());
-            s.setDroppedOnField();
+            sourceSlot.getRepresentation().setVisible(false);
+            this.moveUnitsFromBackpack(targetField, sourceSlot, sourceSlot.getNumberOfUnits());
+            sourceSlot.setDroppedOnField();
         }
     }
-    private void moveUnitsFromBackpack(Field f, Slot s,int numberOfUnits)
+    private void moveUnitsFromBackpack(Field targetField, Slot sourceSlot, int numberOfUnits)
     {
-        Player p = s.getPlayer();
-        if(f.getFieldSlot()==null)
+        Player p = sourceSlot.getPlayer();
+        if(targetField.getFieldSlot()==null)
         {
-            f.setFieldSlot(new Slot(numberOfUnits,s.getUnitName(),game,-2,p));
-            f.getFieldSlot().getFieldRepresentation().setX(f.getFieldSquare().getX());
-            f.getFieldSlot().getFieldRepresentation().setY(f.getFieldSquare().getY());
-            f.getFieldSlot().getFieldRepresentation().setVisible(true);
-            f.getFieldSlot().setDroppedOnField();
-            s.getFieldRepresentation().setText(s.getUnitName().getElement().getSymbol()+s.getUnitName().getType().getSymbol()+numberOfUnits);
-            f.getText().setText(s.getFieldRepresentation().getText());
-            f.getText().setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 12));
+            targetField.setFieldSlot(new Slot(numberOfUnits, sourceSlot.getUnitName(),game,-2,p));
+            targetField.getFieldRepresentation().setX(targetField.getFieldSquare().getX());
+            targetField.getFieldRepresentation().setY(targetField.getFieldSquare().getY());
+            targetField.getFieldRepresentation().setVisible(true);
+            targetField.getFieldSlot().setDroppedOnField();
+            sourceSlot.getFieldRepresentation().setText(sourceSlot.getElementSymbol()+ sourceSlot.getTypeSymbol()+numberOfUnits);
+            targetField.getText().setText(sourceSlot.getFieldRepresentation().getText());
+            targetField.getText().setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 12));
             if(p.getPlayerNumber()==1) {
-                f.getText().setFill(Color.DARKBLUE);
+                targetField.getText().setFill(Color.DARKBLUE);
             }
             else
             {
-                f.getText().setFill(Color.DARKRED);
+                targetField.getText().setFill(Color.DARKRED);
             }
-            f.getText().setX(f.getFieldSquare().getX()+5);
-            f.getText().setY(f.getFieldSquare().getY()+30);
+            targetField.getText().setX(targetField.getFieldSquare().getX()+5);
+            targetField.getText().setY(targetField.getFieldSquare().getY()+30);
         }
         else
         {
-            f.getFieldSlot().setNumberOfUnits(f.getFieldSlot().getNumberOfUnits()+numberOfUnits);
-            f.getFieldSlot().getFieldRepresentation().setText(f.getFieldSlot().getUnitName().getElement().getSymbol()+f.getFieldSlot().getUnitName().getType().getSymbol()+f.getFieldSlot().getNumberOfUnits());
-            f.getText().setText(f.getFieldSlot().getFieldRepresentation().getText());
+            targetField.setNumberOfUnits(targetField.getNumberOfUnits()+numberOfUnits);
+            targetField.getFieldRepresentation().setText(targetField.getElementSymbol()+ targetField.getTypeSymbol()+ targetField.getNumberOfUnits());
+            targetField.getText().setText(targetField.getFieldRepresentation().getText());
         }
+    }
+    private Field chooseEnabledField(Game game)
+    {
+        Field enabled=null;
+        for(Field f: game.getFields())
+        {
+            if(f.getFieldID()==game.getEnabledFieldID())
+            {
+                enabled=f;
+                break;
+            }
+        }
+        return enabled;
     }
 }

@@ -1,5 +1,9 @@
 package Utility;
+import Elements.Element;
+import Elements.ElementName;
 import Game.Game;
+import Units.Type;
+import Units.TypeName;
 import Units.Unit;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -30,7 +34,7 @@ public class Slot {
         return lifeLost;
     }
 
-    public Text getFieldRepresentation() {
+    Text getFieldRepresentation() {
         return fieldRepresentation;
     }
 
@@ -42,17 +46,60 @@ public class Slot {
         return droppedOnField;
     }
 
-    public Player getPlayer() {
+    ElementName getSlotElementName()
+    {
+        return this.getUnitName().getElement().getElementName();
+    }
+
+    int getSpeedOfUnit()
+    {
+        return this.UnitName.getSpeed();
+    }
+
+    int getSightOfUnit()
+    {
+        return this.UnitName.getSight();
+    }
+
+    TypeName getSlotTypeName()
+    {
+        return this.getUnitName().getType().getTypeName();
+    }
+
+    Player getPlayer() {
         return player;
     }
 
+    Type getSlotType()
+    {
+        return this.getUnitName().getType();
+    }
+
+    Element getSlotElement()
+    {
+        return this.getUnitName().getElement();
+    }
     int getSlotID() {
         return slotID;
     }
 
+    int getPlayerNumber()
+    {
+        return this.getPlayer().getPlayerNumber();
+    }
 
     private void setIfSelected() {
         this.ifSelected = false;
+    }
+
+    String getElementSymbol()
+    {
+        return this.getUnitName().getElement().getSymbol();
+    }
+
+    String getTypeSymbol()
+    {
+        return this.getUnitName().getType().getSymbol();
     }
 
     void setNumberOfUnits(int numberOfUnits) {

@@ -9,18 +9,18 @@ import java.io.InputStreamReader;
 public class MenuHandler {
     static String getCommand()
     {
-        String st = null;
+        String command = null;
         try
         {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            st = reader.readLine();
+            command = reader.readLine();
         }
         catch(IOException e)
         {
             System.out.println("Error with input!");
             e.printStackTrace();
         }
-        return st;
+        return command;
     }
     private static void startingMessage()
     {
@@ -31,8 +31,8 @@ public class MenuHandler {
         MenuHandler.startingMessage();
         Player[]players;
         while (true) {
-            String st = MenuHandler.getCommand();
-            if (st.equals("start"))
+            String command = MenuHandler.getCommand();
+            if (command.equals("start"))
             {
                 ArmyCreator armyCreator = new ArmyCreator();
                 armyCreator.setArmy(game);
@@ -40,7 +40,7 @@ public class MenuHandler {
                 break;
             }
             else {
-                if (st.equals("exit"))
+                if (command.equals("exit"))
                 {
                     System.exit(0);
                 }

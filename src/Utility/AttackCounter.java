@@ -6,17 +6,17 @@ import Units.Unit;
         int attack = Unit.getAttackMin() + ((int)((double)(Unit.getAttackMax() - Unit.getAttackMin())*Math.random()));
 
         int attackElement;
-        if(attacker.getElement().getElementStrong() == defender.getElement().getElementName())
+        if(attacker.getElementStrong().equals(defender.getElementName()))
         {
-            attackElement =(int)((double) (attacker.getElement().getElementStrongValueMax()-attacker.getElement().getElementStrongValueMin())*Math.random());
-            attackElement+= attacker.getElement().getElementStrongValueMin();
+            attackElement =(int)((double) (attacker.getElementStrongValueMax()-attacker.getElementStrongValueMin())*Math.random());
+            attackElement+= attacker.getElementStrongValueMin();
         }
         else
         {
-            if(attacker.getElement().getElementVulnerable() == defender.getElement().getElementName())
+            if(attacker.getElementVulnerable().equals(defender.getElementName()))
             {
-                attackElement =-((int)((double) (attacker.getElement().getElementVulnerableValueMax()-attacker.getElement().getElementVulnerableValueMin())*Math.random()));
-                attackElement -= attacker.getElement().getElementVulnerableValueMin();
+                attackElement =-((int)((double) (attacker.getElementVulnerableValueMax()-attacker.getElementVulnerableValueMin())*Math.random()));
+                attackElement -= attacker.getElementVulnerableValueMin();
             }
             else
             {
@@ -24,17 +24,17 @@ import Units.Unit;
             }
         }
         int attackType;
-        if(attacker.getType().getTypeStrong() == defender.getType().getTypeName())
+        if(attacker.getTypeStrong().equals(defender.getTypeName()))
         {
-            attackType =(int)((double) (attacker.getType().getTypeStrongValueMax()-attacker.getType().getTypeStrongValueMin())*Math.random());
-            attackType+= attacker.getType().getTypeStrongValueMin();
+            attackType =(int)((double) (attacker.getTypeStrongValueMax()-attacker.getTypeStrongValueMin())*Math.random());
+            attackType+= attacker.getTypeStrongValueMin();
         }
         else
         {
-            if(attacker.getType().getTypeVulnerable() == defender.getType().getTypeName())
+            if(attacker.getTypeVulnerable().equals(defender.getTypeName()))
             {
-                attackType =-((int)((double) (attacker.getType().getTypeVulnerableValueMax()-attacker.getType().getTypeVulnerableValueMin())*Math.random()));
-                attackType -= attacker.getType().getTypeVulnerableValueMin();
+                attackType =-((int)((double) (attacker.getTypeVulnerableValueMax()-attacker.getTypeVulnerableValueMin())*Math.random()));
+                attackType -= attacker.getTypeVulnerableValueMin();
             }
             else
             {

@@ -46,22 +46,22 @@ public class BoardSetter {
         list.addAll(board,p1Board,p2Board);
         for(Integer a=0;a<13;a++)
         {
-            Line l = new Line(383+(a*50),44,383+(a*50),644);
+            Line verticalLine = new Line(383+(a*50),44,383+(a*50),644);
+            Line horizontalLine = new Line(383,44+(a*50),983,44+(a*50));
             if(a<12)
             {
-                Text t = new Text(383+(a*50)+20,40,Character.toString((char)(65+a)));
-                t.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR,16));
-                t.setFill(Color.ORANGE);
-                list.add(t);
-                Text t2 = new Text(360,44+(a*50)+30,a.toString());
-                t2.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR,16));
-                t2.setFill(Color.ORANGE);
-                list.add(t2);
+                Text columnLetter = new Text(383+(a*50)+20,40,Character.toString((char)(65+a)));
+                columnLetter.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR,16));
+                columnLetter.setFill(Color.ORANGE);
+                list.add(columnLetter);
+                Text rowLetter = new Text(360,44+(a*50)+30,a.toString());
+                rowLetter.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR,16));
+                rowLetter.setFill(Color.ORANGE);
+                list.add(rowLetter);
             }
-            l.setVisible(true);
-            Line l2 = new Line(383,44+(a*50),983,44+(a*50));
-            list.add(l);
-            list.add(l2);
+            verticalLine.setVisible(true);
+            list.add(verticalLine);
+            list.add(horizontalLine);
         }
         unitsOfPlayer1 = makePlayersUnitsVisible(players[0]);
         unitsOfPlayer2 = makePlayersUnitsVisible(players[1]);
@@ -119,13 +119,13 @@ public class BoardSetter {
     }
     public static Text createPlayerLabel(int playerNumber,double x, double y,Color color)
     {
-        Text label = new Text();
-        label.setText("Player "+playerNumber);
-        label.setFill(color);
-        label.setFont(Font.font("arial",FontWeight.BOLD,FontPosture.REGULAR,30));
-        label.setX(x);
-        label.setY(y);
-        return label;
+        Text playerLabel = new Text();
+        playerLabel.setText("Player "+playerNumber);
+        playerLabel.setFill(color);
+        playerLabel.setFont(Font.font("arial",FontWeight.BOLD,FontPosture.REGULAR,30));
+        playerLabel.setX(x);
+        playerLabel.setY(y);
+        return playerLabel;
     }
     public static void createGlow(double level, Node node)
     {

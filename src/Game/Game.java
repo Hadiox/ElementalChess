@@ -32,7 +32,7 @@ public class Game extends Application {
         turnLabel = BoardSetter.createTurnLabel();
         fields = new ArrayList<>();
         BattlefieldManager manager = new BattlefieldManager(this,players);
-        TextField amountOfUnits = manager.createTextFieldForAmountOfUnits(384,650);
+        TextField amountOfUnits = manager.createAmountOfUnitsTextField(384,650);
         Text amountOfUnitsText = manager.createAmountOfUnitsText(370,690);
         CheckBox moveCheckBox = manager.createCheckBox("Move",600,650);
         CheckBox attackCheckBox = manager.createCheckBox("Attack",700,650);
@@ -105,46 +105,8 @@ public class Game extends Application {
     }
     public void cleanUpAfterTurn()
     {
-        boolean ifWon = true;
-        boolean ifPlayerOneWon = false;
-        boolean ifPlayerTwoWon = false;
-        for(Slot backpackPlayerOneSlot : this.getPlayers()[0].getBackpack())
-        {
-            if(!backpackPlayerOneSlot.isDroppedOnField())
-            {
-                ifWon=false;
-            }
-        }
-        for(Field fieldChecked:this.getFields())
-        {
-            if(fieldChecked.getFieldSlot()!=null && fieldChecked.getFieldSlot().getPlayer().getPlayerNumber()==1)
-            {
-                ifWon=false;
-            }
-        }
-        if(ifWon)
-        {
-            ifPlayerTwoWon=true;
-        }
-        ifWon=true;
-        for(Slot backpackPlayerTwoSlot : this.getPlayers()[1].getBackpack())
-        {
-            if(!backpackPlayerTwoSlot.isDroppedOnField())
-            {
-                ifWon=false;
-            }
-        }
-        for(Field f:this.getFields())
-        {
-            if(f.getFieldSlot()!=null && f.getFieldSlot().getPlayer().getPlayerNumber()==2)
-            {
-                ifWon=false;
-            }
-        }
-        if(ifWon)
-        {
-            ifPlayerOneWon=true;
-        }
+        boolean ifPlayerOneWon = checkIfPlayerWon(this.getPlayers()[1]);
+        boolean ifPlayerTwoWon = checkIfPlayerWon(this.getPlayers()[0]);
         for(Slot slot:this.getPlayers()[this.getPlayerTurn()-1].getBackpack())
         {
             BoardSetter.createGlow(0,slot.getRepresentation());
@@ -179,5 +141,24 @@ public class Game extends Application {
                 this.getTurnLabel().setText("Game over! Player 2 won!");
             }
         }
+    }
+    private boolean checkIfPlayerWon(Player player)
+    {
+        boolean ifWon = true;
+        for(Slot backpackSlot : player.getBackpack())
+        {
+            if(!backpackSlot.isDroppedOnField())
+            {
+                ifWon=false;
+            }
+        }
+        for(Field fieldChecked:this.getFields())
+        {
+            if(fieldChecked.getFieldSlot()!=null && fieldChecked.getFieldPlayerNumber()==player.getPlayerNumber())
+            {
+                ifWon=false;
+            }
+        }
+        return ifWon;
     }
 }
