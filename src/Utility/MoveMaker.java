@@ -8,53 +8,53 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
 class MoveMaker {
-    void moveFromBackpack(Game game, Player[]players, Field fieldCreated, TextField amountOfUnits,BattlefieldManager manager)
+    void moveFromBackpack(Game game, Player[]players, Field targetField, TextField amountOfUnits, BattlefieldManager manager)
     {
         if(game.getEnabledSlotID() != -1)
         {
             Player ownerOfUnits = players[game.getPlayerTurn()-1];
             for (Slot processedSlot : ownerOfUnits.getBackpack()) {
                 if (processedSlot.getSlotID() == game.getEnabledSlotID()) {
-                    checkIfMoveFromBackpackAvailable(processedSlot,fieldCreated,amountOfUnits,manager,game);
+                    checkIfMoveFromBackpackAvailable(processedSlot, targetField,amountOfUnits,manager,game);
                 }
             }
         }
     }
 
-    void move (Game game,Field fieldCreated,BattlefieldManager manager, double x, double y)
+    void move (Game game, Field targetField, BattlefieldManager manager, double x, double y)
     {
         if(game.getEnabledFieldID()!= -1)
         {
             Field source = getEnabledField(game);
-            if (Field.checkAvailability(source.getSpeedOfUnit(), source.getFieldID(), fieldCreated.getFieldID(), game)) {
-                makeAMove(fieldCreated,manager,source,game,x,y);
+            if (Field.checkAvailability(source.getSpeedOfUnit(), source.getFieldID(), targetField.getFieldID(), game)) {
+                makeAMove(targetField,manager,source,game,x,y);
             }
         }
     }
-    void attack(Game game,Field fieldCreated)
+    void attack(Game game,Field targetField)
     {
         Field source = getEnabledField(game);
-        if (source.getFieldSlot() != null && fieldCreated.getFieldSlot() != null && !source.equals(fieldCreated) && Field.checkAvailability(source.getSightOfUnit(), source.getFieldID(), fieldCreated.getFieldID(), game) && (!source.getFieldPlayer().equals(fieldCreated.getFieldPlayer()))) {
-            int sourceAttack = AttackCounter.countAttack(source.getFieldSlot(), fieldCreated.getFieldSlot());
-            int fAttack = AttackCounter.countAttack(fieldCreated.getFieldSlot(), source.getFieldSlot());
+        if (source.getFieldSlot() != null && targetField.getFieldSlot() != null && !source.equals(targetField) && Field.checkAvailability(source.getSightOfUnit(), source.getFieldID(), targetField.getFieldID(), game) && (!source.getFieldPlayer().equals(targetField.getFieldPlayer()))) {
+            int sourceAttack = AttackCounter.countAttack(source.getFieldSlot(), targetField.getFieldSlot());
+            int fAttack = AttackCounter.countAttack(targetField.getFieldSlot(), source.getFieldSlot());
             fAttack += source.getLifeLost();
-            sourceAttack += fieldCreated.getLifeLost();
+            sourceAttack += targetField.getLifeLost();
             int sourceUnitsLeft = source.getNumberOfUnits() - (fAttack / source.getLife());
-            int fUnitsLeft = fieldCreated.getNumberOfUnits() - (sourceAttack / fieldCreated.getLife());
+            int fUnitsLeft = targetField.getNumberOfUnits() - (sourceAttack / targetField.getLife());
             int sourceAdditionalLifeLost = fAttack % source.getLife();
-            int fAdditionalLifeLost = sourceAttack % fieldCreated.getLife();
+            int fAdditionalLifeLost = sourceAttack % targetField.getLife();
             BattlefieldManager.reduceNumberOfUnits(source, sourceUnitsLeft, sourceAdditionalLifeLost);
-            BattlefieldManager.reduceNumberOfUnits(fieldCreated, fUnitsLeft, fAdditionalLifeLost);
+            BattlefieldManager.reduceNumberOfUnits(targetField, fUnitsLeft, fAdditionalLifeLost);
             BoardSetter.createGlow(0, source.getText());
             game.cleanUpAfterTurn();
         }
     }
-    private void checkIfMoveFromBackpackAvailable(Slot processedSlot, Field fieldCreated, TextField amountOfUnits, BattlefieldManager manager, Game game){
+    private void checkIfMoveFromBackpackAvailable(Slot processedSlot, Field targetField, TextField amountOfUnits, BattlefieldManager manager, Game game){
 
-        if ((processedSlot.getPlayerNumber()==1&&fieldCreated.getFieldID() > 131 && fieldCreated.getFieldID() < 144 && !processedSlot.isDroppedOnField())||(processedSlot.getPlayerNumber()==2&&fieldCreated.getFieldID() >=0 && fieldCreated.getFieldID() < 12 && !processedSlot.isDroppedOnField())) {
+        if ((processedSlot.getPlayerNumber()==1&& targetField.getFieldID() > 131 && targetField.getFieldID() < 144 && !processedSlot.isDroppedOnField())||(processedSlot.getPlayerNumber()==2&& targetField.getFieldID() >=0 && targetField.getFieldID() < 12 && !processedSlot.isDroppedOnField())) {
             String numberOfUnitsText = amountOfUnits.getText();
             try {
-                    makeAMoveFromBackpack(numberOfUnitsText,fieldCreated,manager,processedSlot,game);
+                    makeAMoveFromBackpack(numberOfUnitsText, targetField,manager,processedSlot,game);
                 }
 
             catch (NumberFormatException ex) {
@@ -62,15 +62,15 @@ class MoveMaker {
             }
         }
     }
-    private void makeAMoveFromBackpack(String numberOfUnitsText, Field fieldCreated, BattlefieldManager manager, Slot processedSlot, Game game)throws NumberFormatException {
+    private void makeAMoveFromBackpack(String numberOfUnitsText, Field targetField, BattlefieldManager manager, Slot processedSlot, Game game)throws NumberFormatException {
         int numberOfUnits = Integer.parseInt(numberOfUnitsText);
         if (numberOfUnits > 0) {
-            if (fieldCreated.getFieldSlot() == null) {
-                manager.checkAmountOfChosenUnits(fieldCreated, processedSlot, numberOfUnits);
+            if (targetField.getFieldSlot() == null) {
+                manager.checkAmountOfChosenUnits(targetField, processedSlot, numberOfUnits);
                 game.cleanUpAfterTurn();
             } else {
-                if (fieldCreated.getFieldPlayer().equals(processedSlot.getPlayer()) && fieldCreated.getFieldType().equals(processedSlot.getSlotType()) && fieldCreated.getElement().equals(processedSlot.getSlotElement())) {
-                    manager.checkAmountOfChosenUnits(fieldCreated, processedSlot, numberOfUnits);
+                if (targetField.getFieldPlayer().equals(processedSlot.getPlayer()) && targetField.getFieldType().equals(processedSlot.getSlotType()) && targetField.getElement().equals(processedSlot.getSlotElement())) {
+                    manager.checkAmountOfChosenUnits(targetField, processedSlot, numberOfUnits);
                     game.cleanUpAfterTurn();
                 }
             }
@@ -86,26 +86,26 @@ class MoveMaker {
         }
         return enabled;
     }
-    private void makeAMove(Field fieldCreated,BattlefieldManager manager,Field source,Game game,double x, double y)
+    private void makeAMove(Field targetField, BattlefieldManager manager, Field source, Game game, double x, double y)
     {
-        if (fieldCreated.getFieldSlot() != null && source.getFieldSlot() != null && fieldCreated.getFieldPlayer().equals(source.getFieldPlayer()) && !source.equals(fieldCreated) && source.getElement().equals(fieldCreated.getElement()) && source.getFieldType().equals(fieldCreated.getFieldType())) {
-            manager.checkAmountOfChosenUnits(fieldCreated, source.getFieldSlot(), source.getNumberOfUnits());
+        if (targetField.getFieldSlot() != null && source.getFieldSlot() != null && targetField.getFieldPlayer().equals(source.getFieldPlayer()) && !source.equals(targetField) && source.getElement().equals(targetField.getElement()) && source.getFieldType().equals(targetField.getFieldType())) {
+            manager.checkAmountOfChosenUnits(targetField, source.getFieldSlot(), source.getNumberOfUnits());
             source.setFieldSlot(null);
             source.getText().setText("");
             game.cleanUpAfterTurn();
         } else {
-            if (source.getFieldSlot() != null && fieldCreated.getFieldSlot() == null && !source.equals(fieldCreated)) {
-                fieldCreated.setFieldSlot(source.getFieldSlot());
+            if (source.getFieldSlot() != null && targetField.getFieldSlot() == null && !source.equals(targetField)) {
+                targetField.setFieldSlot(source.getFieldSlot());
                 source.setFieldSlot(null);
                 source.getText().setText("");
-                fieldCreated.getText().setX(x + 5);
-                fieldCreated.getText().setY(y + 30);
-                fieldCreated.getText().setText(fieldCreated.getFieldRepresentation().getText());
-                fieldCreated.getText().setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 12));
-                if (fieldCreated.getFieldPlayerNumber() == 1) {
-                    fieldCreated.getText().setFill(Color.DARKBLUE);
+                targetField.getText().setX(x + 5);
+                targetField.getText().setY(y + 30);
+                targetField.getText().setText(targetField.getFieldRepresentation().getText());
+                targetField.getText().setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 12));
+                if (targetField.getFieldPlayerNumber() == 1) {
+                    targetField.getText().setFill(Color.DARKBLUE);
                 } else {
-                    fieldCreated.getText().setFill(Color.DARKRED);
+                    targetField.getText().setFill(Color.DARKRED);
                 }
                 game.cleanUpAfterTurn();
             }
