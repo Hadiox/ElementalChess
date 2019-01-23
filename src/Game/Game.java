@@ -105,8 +105,8 @@ public class Game extends Application {
     }
     public void cleanUpAfterTurn()
     {
-        boolean ifPlayerOneWon = checkIfPlayerWon(this.getPlayers()[1]);
-        boolean ifPlayerTwoWon = checkIfPlayerWon(this.getPlayers()[0]);
+        boolean ifPlayerOneWon = checkIfOpponentPlayerWon(this.getPlayers()[1]);
+        boolean ifPlayerTwoWon = checkIfOpponentPlayerWon(this.getPlayers()[0]);
         for(Slot slot:this.getPlayers()[this.getPlayerTurn()-1].getBackpack())
         {
             BoardSetter.createGlow(0,slot.getRepresentation());
@@ -142,7 +142,7 @@ public class Game extends Application {
             }
         }
     }
-    private boolean checkIfPlayerWon(Player player)
+    private boolean checkIfOpponentPlayerWon(Player player)
     {
         boolean ifWon = true;
         for(Slot backpackSlot : player.getBackpack())
