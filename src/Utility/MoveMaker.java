@@ -36,12 +36,12 @@ class MoveMaker {
         Field source = getEnabledField(game);
         if (source.getFieldSlot() != null && targetField.getFieldSlot() != null && !source.equals(targetField) && Field.checkAvailability(source.getSightOfUnit(), source.getFieldID(), targetField.getFieldID(), game) && (!source.getFieldPlayer().equals(targetField.getFieldPlayer()))) {
             int sourceAttack = AttackCounter.countAttack(source.getFieldSlot(), targetField.getFieldSlot());
-            int fAttack = AttackCounter.countAttack(targetField.getFieldSlot(), source.getFieldSlot());
-            fAttack += source.getLifeLost();
+            int targetAttack = AttackCounter.countAttack(targetField.getFieldSlot(), source.getFieldSlot());
+            targetAttack += source.getLifeLost();
             sourceAttack += targetField.getLifeLost();
-            int sourceUnitsLeft = source.getNumberOfUnits() - (fAttack / source.getLife());
+            int sourceUnitsLeft = source.getNumberOfUnits() - (targetAttack / source.getLife());
             int fUnitsLeft = targetField.getNumberOfUnits() - (sourceAttack / targetField.getLife());
-            int sourceAdditionalLifeLost = fAttack % source.getLife();
+            int sourceAdditionalLifeLost = targetAttack % source.getLife();
             int fAdditionalLifeLost = sourceAttack % targetField.getLife();
             BattlefieldManager.reduceNumberOfUnits(source, sourceUnitsLeft, sourceAdditionalLifeLost);
             BattlefieldManager.reduceNumberOfUnits(targetField, fUnitsLeft, fAdditionalLifeLost);
